@@ -1,7 +1,7 @@
 import { StyleSheet, TextInput } from 'react-native'
 import React, {useState} from 'react'
-// try to push to w2, 2nd try, 1st one failed
-export default function Input() {
+
+export default function Input( {autoFocus = false} ) {
 
   const [text, setText] = useState("");
 
@@ -16,6 +16,7 @@ export default function Input() {
         style={{borderBottomColor: "purple", borderBottomWidth: 2}}
         value={text}
         onChangeText={updateText}
+        autoFocus={autoFocus}
       />
   )
 }
