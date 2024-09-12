@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput } from 'react-native'
+import { StyleSheet, TextInput, Text, View } from 'react-native'
 import React, {useState} from 'react'
 
 export default function Input( {autoFocus = false} ) {
@@ -10,6 +10,7 @@ export default function Input( {autoFocus = false} ) {
   }
     
   return (
+    <View>
       <TextInput 
         placeholder='Please enter the text here' 
         keyboardType='default' 
@@ -18,6 +19,12 @@ export default function Input( {autoFocus = false} ) {
         onChangeText={updateText}
         autoFocus={autoFocus}
       />
+      {text.length > 0 && (
+        <Text style={styles.charCount}>
+            {text.length} characters
+        </Text>
+      )}
+    </View>
   )
 }
 
