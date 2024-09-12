@@ -14,10 +14,6 @@ export default function Input( {autoFocus = false} ) {
   function handleBlur() {
     setShowCharCount(false);
   }
-
-  function handleFocus() {
-    setShowCharCount(true);
-  }
     
   return (
     <View>
@@ -28,7 +24,6 @@ export default function Input( {autoFocus = false} ) {
         value={text}
         onChangeText={updateText}
         onBlur={handleBlur}
-        onFocus={handleFocus}
         autoFocus={autoFocus}
       />
       {showCharCount && text.length > 0 && (
