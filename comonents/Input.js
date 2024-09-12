@@ -1,11 +1,22 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, TextInput } from 'react-native'
+import React, {useState} from 'react'
 
 export default function Input() {
+
+  const [text, setText] = useState("");
+
+  function updateText(newText) {
+    setText(newText);
+  }
+    
   return (
-    <View>
-      <Text>Input</Text>
-    </View>
+      <TextInput 
+        placeholder='Please enter the text here' 
+        keyboardType='default' 
+        style={{borderBottomColor: "purple", borderBottomWidth: 2}}
+        value={text}
+        onChangeText={updateText}
+      />
   )
 }
 
