@@ -1,6 +1,6 @@
 import { StyleSheet, TextInput } from 'react-native'
 import React, {useState} from 'react'
-// try to push to w2
+// try to push to w2, 2nd try, 1st one failed
 export default function Input() {
 
   const [text, setText] = useState("");
