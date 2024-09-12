@@ -5,14 +5,22 @@ export default function Input( {autoFocus = false} ) {
 
   const [text, setText] = useState("");
   const [showCharCount, setShowCharCount] = useState(false);
+  const [message, setMessage] = useState("");
 
   function updateText(newText) {
     setText(newText);
     setShowCharCount(true);
+    setMessage("");
   }
 
   function handleBlur() {
     setShowCharCount(false);
+    // show messages here checking if >= or < 3 characters
+    if (text.length >= 3) {
+        setMessage("Thank you")
+    } else {
+        setMessage("Please type more than 3 characters")
+    }
   }
     
   return (
@@ -29,6 +37,11 @@ export default function Input( {autoFocus = false} ) {
       {showCharCount && text.length > 0 && (
         <Text style={styles.charCount}>
             {text.length} characters
+        </Text>
+      )}
+      {message.length > 0 && (
+        <Text style={styles.message}>
+            {message}
         </Text>
       )}
     </View>
