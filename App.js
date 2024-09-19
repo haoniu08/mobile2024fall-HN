@@ -24,12 +24,14 @@ export default function App() {
       <StatusBar style="auto" />
       <Header name={appName} /> 
       {/* <Input autoFocus={true} inputHandler={handleReceivedData}/> */}
-      <Button 
-        title="Add a Goal" 
-        onPress={function () {
-          setIsModalVisible(true);
-        }} 
-      />
+      <View style={styles.buttonContainer}> 
+        <Button 
+          title="Add a Goal" 
+          onPress={function () {
+            setIsModalVisible(true);
+          }} 
+        />
+      </View>
       <Input 
         autoFocus={true} 
         inputHandler={handleReceivedData} 
@@ -41,6 +43,10 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    margin: 10,
+    width: "30%",
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',

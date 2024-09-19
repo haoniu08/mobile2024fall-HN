@@ -52,13 +52,19 @@ export default function Input( {
         )}
         {/* The confirm button & onPress prop (event handler) */}
         {/* onPress accepts a function as its value */}
-        <Button title="Confirm" onPress={handleConfirm} />
+        <View style={styles.buttonContainer}>
+          <Button title="Confirm" onPress={handleConfirm} />
+        </View>
       </View>
     </Modal>   
   );
 }
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    margin: 10,
+    width: '30%',
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
