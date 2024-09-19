@@ -20,7 +20,7 @@ export default function Input({ autoFocus, inputHandler, isModalVisible }) {
           <TextInput 
             placeholder='Please enter the text here' 
             keyboardType='default' 
-            style={{borderBottomColor: "purple", borderBottomWidth: 2}}
+            style={styles.input}
             value={text}
             autoFocus={autoFocus}
             onChangeText={(changedText) => {
@@ -52,6 +52,13 @@ export default function Input({ autoFocus, inputHandler, isModalVisible }) {
 }
 
 const styles = StyleSheet.create({
+  input: {
+    borderColor: 'black',
+    borderWidth: 1,
+    padding: 10,
+    width: '80%',
+    marginBottom: 10,
+  },
   buttonContainer: {
     margin: 10,
     width: '30%',
