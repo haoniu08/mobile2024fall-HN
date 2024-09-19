@@ -5,6 +5,7 @@ export default function Input({ autoFocus, inputHandler, isModalVisible }) {
   const [text, setText] = useState("");
   const [blur, setBlur] = useState(false);
 
+  // 2nd try
   function handleConfirm() {
     inputHandler(text);
   }
