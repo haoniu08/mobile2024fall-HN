@@ -50,6 +50,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     color: 'blue',
+    backgroundColor: 'violet',
+    padding: 5,
+    borderRadius: 20,
   },
   safeArea: {
     flex: 1,
