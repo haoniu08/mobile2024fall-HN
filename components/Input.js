@@ -2,14 +2,16 @@
 import { Button, StyleSheet, TextInput, Text, View } from 'react-native'
 import React, {useState} from 'react'
 
-export default function Input( {autoFocus} ) {
+// add inputHandler here
+export default function Input( {autoFocus, inputHandler} ) {
 
   const [text, setText] = useState("");
   const [blur, setBlur] = useState(false);
 
   // The function logs what user has typed in the TextInput to console 
   function handleConfirm() {
-    console.log(text);
+    // add inputHandler here
+    inputHandler(text);
   }
 
   return (
