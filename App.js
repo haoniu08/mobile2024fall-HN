@@ -40,7 +40,9 @@ export default function App() {
         />
       </View>
       <View style={styles.bottomSection}>
+        <View style={styles.userInput}>
           <Text style={styles.text}>{receivedData}</Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -50,9 +52,11 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     color: 'blue',
-    backgroundColor: 'violet',
     padding: 5,
-    borderRadius: 20,
+  },
+  userInput: {
+    backgroundColor: 'violet',
+    borderRadius: 100,
   },
   safeArea: {
     flex: 1,
