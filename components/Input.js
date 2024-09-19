@@ -1,10 +1,16 @@
-import { StyleSheet, TextInput, Text, View } from 'react-native'
+// Import button here
+import { Button, StyleSheet, TextInput, Text, View } from 'react-native'
 import React, {useState} from 'react'
 
 export default function Input( {autoFocus} ) {
 
   const [text, setText] = useState("");
   const [blur, setBlur] = useState(false);
+
+  // The function logs what user has typed in the TextInput to console 
+  function handleConfirm() {
+    console.log(text);
+  }
 
   return (
     <View>
@@ -14,19 +20,20 @@ export default function Input( {autoFocus} ) {
         style={{borderBottomColor: "purple", borderBottomWidth: 2}}
         value={text}
         autoFocus={autoFocus}
-        // onChangeText={updateText}
+        // onChangeText={updateText}, removed
         onChangeText={ (changedText) => {
           setText(changedText);
         }}
-        // onBlur={handleBlur}
+        // onBlur={handleBlur}, original function removed
         onBlur={ () => {
           setBlur(true);
         }}
+        // This makes the character count appear again when user starts to type
         onFocus={ () => {
           setBlur(false);
         }}
       />
-
+      {/* The code (Neda) replaces the original function - handle blur etc. */}
       {blur ? (
         text.length >= 3 ? (
           <Text>Thank you</Text>
@@ -36,6 +43,9 @@ export default function Input( {autoFocus} ) {
       ) : (
         text && <Text>{text.length}</Text>
       )}
+      {/* The confirm button & onPress prop (event handler) */}
+      {/* onPress accepts a function as its value */}
+      <Button title="Confirm" onPress={handleConfirm} />
     </View>
   );
 }
