@@ -9,7 +9,7 @@ export default function Input({ autoFocus, inputHandler, isModalVisible }) {
   function handleConfirm() {
     inputHandler(text);
   }
-
+  
   return (
     <Modal 
       animationType="slide" 
