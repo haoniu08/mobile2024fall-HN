@@ -30,6 +30,11 @@ export default function App() {
           setIsModalVisible(true);
         }} 
       />
+      <Input 
+        autoFocus={true} 
+        inputHandler={handleReceivedData} 
+        isModalVisible={isModalVisible}
+      />
       <Text>{receivedData}</Text>
     </View>
   );
