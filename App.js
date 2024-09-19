@@ -1,26 +1,75 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import {useState} from 'react';
 import Header from './components/Header';
 import Input from './components/Input';
 
 export default function App() {
 
-  const appName = "WaWaWeeWa";
+  const appName = "Don Baguette";
+  // define a state variable to store the received data
+  const [receivedData, setReceivedData] = useState("");
+  // set the initial state of the modal to false
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // define a function to handle the received data
+  function handleReceivedData(data) {
+    // console.log("App", data);, still prints out to the console
+    setReceivedData(data);
+    setIsModalVisible(false);
+  }
 
   return (
-    <View style={styles.container}>      
-      <Header name={appName} />
-      <Input autoFocus={true}/>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.topSection}>      
+        <StatusBar style="auto" />
+        <Header name={appName} /> 
+        {/* <Input autoFocus={true} inputHandler={handleReceivedData}/> */}
+        <View style={styles.buttonContainer}> 
+          <Button 
+            title="Add a Goal" 
+            onPress={function () {
+              setIsModalVisible(true);
+            }} 
+          />
+        </View>
+        <Input 
+          autoFocus={true} 
+          inputHandler={handleReceivedData} 
+          isModalVisible={isModalVisible}
+        />
+      </View>
+      <View style={styles.bottomSection}>
+          <Text style={styles.text}>{receivedData}</Text>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  text: {
+    fontSize: 20,
+    color: 'blue',
+  },
+  safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'lightblue',
+  },
+  topSection: {
+    flex: 1,
+    backgroundColor: 'lime',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonContainer: {
+    margin: 10,
+    width: "30%",
+  },
+  bottomSection: {
+    flex: 4,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#dcd',
   },
 });
