@@ -1,13 +1,29 @@
-import { Button, Modal, StyleSheet, TextInput, Text, View } from 'react-native';
+import { Button, Modal, StyleSheet, TextInput, Text, View, Alert } from 'react-native';
 import React, { useState } from 'react';
 
-export default function Input({ autoFocus, inputHandler, isModalVisible }) {
+export default function Input({ autoFocus, inputHandler, isModalVisible, onCancel }) {
   const [text, setText] = useState("");
   const [blur, setBlur] = useState(false);
 
-  // 2nd try
   function handleConfirm() {
     inputHandler(text);
+  }
+
+  function handleCancelPress() {
+    Alert.alert(
+      "Cancel",
+      "Are you sure you want to cancel?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "OK",
+          onPress: onCancel
+        }
+      ]
+    );
   }
   
   return (
@@ -43,6 +59,7 @@ export default function Input({ autoFocus, inputHandler, isModalVisible }) {
             text && <Text>{text.length}</Text>
           )}
           <View style={styles.buttonContainer}>
+            <Button title="Cancel" onPress={handleCancelPress} />
             <Button title="Confirm" onPress={handleConfirm} />
           </View>
         </View>
@@ -60,6 +77,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   buttonContainer: {
+    flexDirection: 'row',
     margin: 10,
     width: '30%',
   },

@@ -19,6 +19,10 @@ export default function App() {
     setIsModalVisible(false);
   }
 
+  function handleCancel() {
+    setIsModalVisible(false);
+  }
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.topSection}>      
@@ -37,6 +41,7 @@ export default function App() {
           autoFocus={true} 
           inputHandler={handleReceivedData} 
           isModalVisible={isModalVisible}
+          onCancel={handleCancel}
         />
       </View>
       <View style={styles.bottomSection}>
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   userInput: {
-    backgroundColor: 'violet',
+    backgroundColor: 'skyblue',
     borderRadius: 100,
   },
   safeArea: {
