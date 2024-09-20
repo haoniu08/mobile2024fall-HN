@@ -1,4 +1,4 @@
-import { Button, Modal, StyleSheet, TextInput, Text, View, Alert } from 'react-native';
+import { Button, Modal, StyleSheet, TextInput, Text, View, Alert, Image } from 'react-native';
 import React, { useState } from 'react';
 
 export default function Input({ autoFocus, inputHandler, isModalVisible, onCancel }) {
@@ -39,6 +39,19 @@ export default function Input({ autoFocus, inputHandler, isModalVisible, onCance
       visible={isModalVisible}>
       <View style={styles.container}>
         <View style={styles.innerContainer}>
+
+          <Image 
+            style={styles.image}
+            source={{uri: 'https://cdn-icons-png.flaticon.com/512/2617/2617812.png'}}
+            alt='img from the Internet'
+          />
+
+          <Image 
+            style={styles.image}
+            source={require('../assets/imgs/lab2_goal.png')}
+            alt='local img'
+          />
+
           <TextInput 
             placeholder='Please enter the text here' 
             keyboardType='default' 
@@ -80,6 +93,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     width: '80%',
+    marginBottom: 5,
+  },
+  image: {
+    width: 100,
+    height: 100,
     marginBottom: 10,
   },
   buttonContainer: {
