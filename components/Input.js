@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   buttonContainer: {
+    // flex properties are used here
     flexDirection: 'row',
     margin: 10,
     width: '30%',
