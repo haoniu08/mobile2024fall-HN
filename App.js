@@ -40,9 +40,11 @@ export default function App() {
         />
       </View>
       <View style={styles.bottomSection}>
-        <View style={styles.userInput}>
+        { receivedData ? (
+          <View style={styles.userInput}>
           <Text style={styles.text}>{receivedData}</Text>
         </View>
+        ) : null}
       </View>
     </SafeAreaView>
   );
