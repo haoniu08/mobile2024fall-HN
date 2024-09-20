@@ -7,6 +7,8 @@ export default function Input({ autoFocus, inputHandler, isModalVisible, onCance
 
   function handleConfirm() {
     inputHandler(text);
+    // clear the text input
+    setText("");
   }
 
   function handleCancelPress() {
@@ -20,7 +22,11 @@ export default function Input({ autoFocus, inputHandler, isModalVisible, onCance
         },
         {
           text: "OK",
-          onPress: onCancel
+          // need to pass a function, not an object
+          onPress: () => {
+            onCancel();
+            setText("");
+          }
         }
       ]
     );
