@@ -65,8 +65,8 @@ export default function Input({ autoFocus, inputHandler, isModalVisible, onCance
             text && <Text>{text.length}</Text>
           )}
           <View style={styles.buttonContainer}>
-            <Button title="Cancel" onPress={handleCancelPress} disabled={text.length < 1}/>
-            <Button title="Confirm" onPress={handleConfirm} />
+            <Button title="Cancel" onPress={handleCancelPress}/>
+            <Button title="Confirm" onPress={handleConfirm} disabled={text.length < 1} />
           </View>
         </View>
       </View>
