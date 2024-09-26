@@ -17,8 +17,10 @@ export default function App() {
 
   // define a function to handle the received data
   function handleReceivedData(data) {
-    // console.log("App", data);, still prints out to the console
-    setReceivedData(data);
+    setGoals((currentGoals) => [
+      ...currentGoals,
+      { text: data, id: Math.random()}
+    ]);
     setIsModalVisible(false);
   }
 
