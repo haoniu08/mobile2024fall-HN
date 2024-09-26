@@ -1,8 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import {useState} from 'react';
+import { 
+  Button, 
+  StyleSheet, 
+  Text, 
+  View, 
+  SafeAreaView, 
+  FlatList } from 'react-native';
+import {useState, useEffect} from 'react';
 import Header from './components/Header';
 import Input from './components/Input';
+import GoalItem from './components/GoalItem';
 
 export default function App() {
 
@@ -11,12 +18,44 @@ export default function App() {
   const [receivedData, setReceivedData] = useState("");
   // set the initial state of the modal to false
   const [isModalVisible, setIsModalVisible] = useState(false);
+  // use array to store multiple goals instead just one text
+  const [goals, setGoals] = useState([]);
+
+  // function to generate 40 goal, to test the scroll view
+  useEffect(() => {
+    const initialGoals = Array.from({ length: 40 }, (_, i) => ({
+      text: `Goal ${i + 1}`,
+      id: Math.random().toString(),
+    }));
+    setGoals(initialGoals);
+  }, []);
 
   // define a function to handle the received data
   function handleReceivedData(data) {
-    // console.log("App", data);, still prints out to the console
-    setReceivedData(data);
+    
+    // setGoals((currentGoals) => [
+    //   ...currentGoals,
+    //   { text: data, id: Math.random()}
+    // ]);
+    // setGoals([goals, { text: data, id: Math.random() }]);
+
+    // trying out Neda's way
+    let newGoal = { text: data, id: Math.random().toString() };
+    setGoals((prevGoals) => {
+      return [...prevGoals, newGoal];
+    });
+
     setIsModalVisible(false);
+  }
+
+  function hideModal() {
+    setIsModalVisible(false);
+  }
+
+  function handleDeletedGoals(deletedId) {
+    setGoals((prevGoals) => {
+      return prevGoals.filter((goalObj) => goalObj.id !== deletedId);
+    });
   }
 
   return (
@@ -37,19 +76,31 @@ export default function App() {
           autoFocus={true} 
           inputHandler={handleReceivedData} 
           isModalVisible={isModalVisible}
+          onCancel={hideModal}
         />
       </View>
       <View style={styles.bottomSection}>
-          <Text style={styles.text}>{receivedData}</Text>
+        {/* <test FlatList */}
+        <FlatList
+          contentContainerStyle={styles.scrollViewContainer}
+          data={goals}
+          renderItem={({ item }) => (
+            <GoalItem deleteHandler={handleDeletedGoals} goalObj={item} />
+)}
+        />
       </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollViewContainer: {
+    alignItems: 'center',
+  },
   text: {
     fontSize: 20,
     color: 'blue',
+    padding: 5,
   },
   safeArea: {
     flex: 1,
@@ -69,7 +120,7 @@ const styles = StyleSheet.create({
     flex: 4,
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: '#dcd',
   },
 });
