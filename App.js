@@ -10,6 +10,7 @@ import {
 import {useState, useEffect} from 'react';
 import Header from './components/Header';
 import Input from './components/Input';
+import GoalItem from './components/GoalItem';
 
 export default function App() {
 
@@ -68,15 +69,10 @@ export default function App() {
         {/* <test FlatList */}
         <FlatList
           data={goals}
-          renderItem={(itemData) => (
-            <View style={styles.userInput}>
-              <Text style={styles.text}>{itemData.item.text}</Text>
-            </View>
-          )}
+          renderItem={(itemData) => <GoalItem goal={itemData.item} />}
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.scrollViewContainer}
         />
-
       </View>
     </SafeAreaView>
   );
