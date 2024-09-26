@@ -44,6 +44,12 @@ export default function App() {
     setIsModalVisible(false);
   }
 
+  function handleDeletedGoals(deletedId) {
+    setGoals((prevGoals) => {
+      return prevGoals.filter((goalObj) => goalObj.id !== deletedId);
+    });
+  }
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.topSection}>      
@@ -69,7 +75,9 @@ export default function App() {
         {/* <test FlatList */}
         <FlatList
           data={goals}
-          renderItem={( {item} ) => <GoalItem goalObj={item} />}
+          renderItem={({ item }) => (
+            <GoalItem deleteHandler={handleDeletedGoals} goalObj={item} />
+          )}
         />
       </View>
     </SafeAreaView>
