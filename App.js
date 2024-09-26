@@ -32,11 +32,19 @@ export default function App() {
 
   // define a function to handle the received data
   function handleReceivedData(data) {
-    setGoals((currentGoals) => [
-      ...currentGoals,
-      { text: data, id: Math.random()}
-    ]);
-    setGoals([goals, { text: data, id: Math.random() }]);
+    
+    // setGoals((currentGoals) => [
+    //   ...currentGoals,
+    //   { text: data, id: Math.random()}
+    // ]);
+    // setGoals([goals, { text: data, id: Math.random() }]);
+
+    // trying out Neda's way
+    let newGoal = { text: data, id: Math.random().toString() };
+    setGoals((prevGoals) => {
+      return [...prevGoals, newGoal];
+    });
+
     setIsModalVisible(false);
   }
 
