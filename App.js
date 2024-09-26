@@ -11,6 +11,9 @@ export default function App() {
   const [receivedData, setReceivedData] = useState("");
   // set the initial state of the modal to false
   const [isModalVisible, setIsModalVisible] = useState(false);
+  // use array to store multiple goals instead just one text
+  const [goals, setGoals] = useState([]);
+
 
   // define a function to handle the received data
   function handleReceivedData(data) {
