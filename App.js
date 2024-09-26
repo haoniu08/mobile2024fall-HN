@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import {useState} from 'react';
+import { Button, StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
+import {useState, useEffect} from 'react';
 import Header from './components/Header';
 import Input from './components/Input';
 
@@ -14,6 +14,14 @@ export default function App() {
   // use array to store multiple goals instead just one text
   const [goals, setGoals] = useState([]);
 
+  // function to generate 40 goal, to test the scroll view
+  useEffect(() => {
+    const initialGoals = Array.from({ length: 40 }, (_, i) => ({
+      text: `Goal ${i + 1}`,
+      id: Math.random().toString(),
+    }));
+    setGoals(initialGoals);
+  }, []);
 
   // define a function to handle the received data
   function handleReceivedData(data) {
@@ -50,24 +58,25 @@ export default function App() {
         />
       </View>
       <View style={styles.bottomSection}>
-        {/* { receivedData ? (
-          <View style={styles.userInput}>
-          <Text style={styles.text}>{receivedData}</Text>
-        </View>
-        ) : null} */}
-        {goals.map((goalObj) => {
-          return (
-            <View key={goalObj.id} style={styles.userInput}>
-              <Text style={styles.text}>{goalObj.text}</Text>
-            </View>
-          );
-        })}
+        {/* {about to add ScrollView here} */}
+        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+          {goals.map((goalObj) => {
+            return (
+              <View key={goalObj.id} style={styles.userInput}>
+                <Text style={styles.text}>{goalObj.text}</Text>
+              </View>
+            );
+          })}
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollViewContainer: {
+    alignItems: 'center',
+  },
   text: {
     fontSize: 20,
     color: 'blue',
