@@ -69,9 +69,7 @@ export default function App() {
         {/* <test FlatList */}
         <FlatList
           data={goals}
-          renderItem={(itemData) => <GoalItem goal={itemData.item} />}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.scrollViewContainer}
+          renderItem={( {item} ) => <GoalItem goalObj={item} />}
         />
       </View>
     </SafeAreaView>

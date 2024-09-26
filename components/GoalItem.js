@@ -2,10 +2,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function GoalItem({ goal }) {
+export default function GoalItem({ goalObj }) {
   return (
-    <View style={styles.userInput}>
-      <Text style={styles.text}>{goal.text}</Text>
+    <View key={goalObj.id} style={styles.userInput}>
+      <Text style={styles.text}>{goalObj.text}</Text>
     </View>
   );
 }
