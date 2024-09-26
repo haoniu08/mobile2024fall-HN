@@ -24,7 +24,7 @@ export default function App() {
     setIsModalVisible(false);
   }
 
-  function handleCancel() {
+  function hideModal() {
     setIsModalVisible(false);
   }
 
@@ -46,15 +46,22 @@ export default function App() {
           autoFocus={true} 
           inputHandler={handleReceivedData} 
           isModalVisible={isModalVisible}
-          onCancel={handleCancel}
+          onCancel={hideModal}
         />
       </View>
       <View style={styles.bottomSection}>
-        { receivedData ? (
+        {/* { receivedData ? (
           <View style={styles.userInput}>
           <Text style={styles.text}>{receivedData}</Text>
         </View>
-        ) : null}
+        ) : null} */}
+        {goals.map((goalObj) => {
+          return (
+            <View key={goalObj.id} style={styles.userInput}>
+              <Text style={styles.text}>{goalObj.text}</Text>
+            </View>
+          );
+        })}
       </View>
     </SafeAreaView>
   );
