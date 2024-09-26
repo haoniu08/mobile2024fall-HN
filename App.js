@@ -5,7 +5,6 @@ import {
   Text, 
   View, 
   SafeAreaView, 
-  ScrollView, 
   FlatList } from 'react-native';
 import {useState, useEffect} from 'react';
 import Header from './components/Header';
@@ -37,6 +36,7 @@ export default function App() {
       ...currentGoals,
       { text: data, id: Math.random()}
     ]);
+    setGoals([goals, { text: data, id: Math.random() }]);
     setIsModalVisible(false);
   }
 
@@ -74,10 +74,11 @@ export default function App() {
       <View style={styles.bottomSection}>
         {/* <test FlatList */}
         <FlatList
+          contentContainerStyle={styles.scrollViewContainer}
           data={goals}
           renderItem={({ item }) => (
             <GoalItem deleteHandler={handleDeletedGoals} goalObj={item} />
-          )}
+)}
         />
       </View>
     </SafeAreaView>
@@ -92,10 +93,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'blue',
     padding: 5,
-  },
-  userInput: {
-    backgroundColor: 'skyblue',
-    borderRadius: 100,
   },
   safeArea: {
     flex: 1,
@@ -115,7 +112,7 @@ const styles = StyleSheet.create({
     flex: 4,
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: '#dcd',
   },
 });
