@@ -5,7 +5,8 @@ import {
   View, 
   Text,
   SafeAreaView, 
-  FlatList } from 'react-native';
+  FlatList, 
+  Alert} from 'react-native';
 import {useState, useEffect} from 'react';
 import Header from './components/Header';
 import Input from './components/Input';
@@ -54,6 +55,24 @@ export default function App() {
     });
   }
 
+  function handleDeleteAllGoals() {
+    Alert.alert(
+      "Delete All Goals",
+      "Are you sure you want to delete all goals?",
+      [
+        {
+          text: "No",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () => 
+            setGoals([])
+        }
+      ]
+    );
+  }
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.topSection}>      
@@ -91,6 +110,10 @@ export default function App() {
           ListEmptyComponent={
             <Text style={styles.listPropText}>No goals to show</Text>
           }
+          // to show a footer button "Delete All" when there are goals
+          ListFooterComponent={goals.length > 0 ? (
+            <Button title="Delete All" onPress={handleDeleteAllGoals} />
+          ) : null}
         />
       </View>
     </SafeAreaView>

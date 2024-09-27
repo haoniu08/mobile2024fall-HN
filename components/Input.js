@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   innerContainer: {
-    backgroundColor: 'skyblue',
+    backgroundColor: 'darkgrey',
     padding: 20,
     borderRadius: 10,
     alignItems: 'center',
