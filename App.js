@@ -83,9 +83,14 @@ export default function App() {
           renderItem={({ item }) => (
             <GoalItem deleteHandler={handleDeletedGoals} goalObj={item} />
           )}
+          // to show a header "My Goal List" when user adds a goal
+          ListHeaderComponent={
+            <Text style={styles.listPropText}>My Goal List</Text>
+          }
+          // to show "no goals to show" when the list is empty
           ListEmptyComponent={
-          <Text style={styles.emptyListText}>No goals to show</Text>
-        }
+            <Text style={styles.listPropText}>No goals to show</Text>
+          }
         />
       </View>
     </SafeAreaView>
@@ -115,8 +120,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#dcd',
   },
-  emptyListText: {
-    marginTop: 20,
+  listPropText: {
+    marginTop: 10,
+    marginBottom: 10,
     fontSize: 30,
     color: 'purple',
   },
