@@ -110,7 +110,7 @@ export default function App() {
           ListEmptyComponent={
             <Text style={styles.listPropText}>No goals to show</Text>
           }
-          // to show a footer button "Delete All" when there are goals
+          // to show a footer button "Delete All" when goals.length > 0
           ListFooterComponent={goals.length > 0 ? (
             <Button title="Delete All" onPress={handleDeleteAllGoals} />
           ) : null}
