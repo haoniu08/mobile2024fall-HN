@@ -1,4 +1,4 @@
-// file for abstracting the goal item component
+// file for abstracting the goal item component, rnfs
 import React from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
 
@@ -21,9 +21,10 @@ const styles = StyleSheet.create({
     userInput: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: 'darkgrey',
+      backgroundColor: 'skyblue',
       borderRadius: 5,
-      margin: 5,
+      marginVertical: 5,
+    //   padding: 5,
     },
     text: {
       fontSize: 30,
