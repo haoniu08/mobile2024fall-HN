@@ -3,6 +3,7 @@ import {
   Button, 
   StyleSheet, 
   View, 
+  Text,
   SafeAreaView, 
   FlatList } from 'react-native';
 import {useState, useEffect} from 'react';
@@ -22,7 +23,7 @@ export default function App() {
 
   // function to generate 40 goal, to test the scroll view
   useEffect(() => {
-    const initialGoals = Array.from({ length: 40 }, (_, i) => ({
+    const initialGoals = Array.from({ length: 10 }, (_, i) => ({
       text: `Goal ${i + 1}`,
       id: Math.random().toString(),
     }));
@@ -82,6 +83,9 @@ export default function App() {
           renderItem={({ item }) => (
             <GoalItem deleteHandler={handleDeletedGoals} goalObj={item} />
           )}
+          ListEmptyComponent={
+          <Text style={styles.emptyListText}>No goals to show</Text>
+        }
         />
       </View>
     </SafeAreaView>
@@ -92,18 +96,12 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     alignItems: 'center',
   },
-  text: {
-    fontSize: 20,
-    color: 'blue',
-    padding: 5,
-  },
   safeArea: {
     flex: 1,
-    backgroundColor: 'lightblue',
   },
   topSection: {
     flex: 1,
-    backgroundColor: 'lime',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -116,5 +114,10 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     backgroundColor: '#dcd',
+  },
+  emptyListText: {
+    marginTop: 20,
+    fontSize: 30,
+    color: 'purple',
   },
 });
