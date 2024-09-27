@@ -5,8 +5,8 @@ import {
   View, 
   Text,
   SafeAreaView, 
-  ScrollView, 
-  FlatList } from 'react-native';
+  FlatList, 
+  Alert} from 'react-native';
 import {useState, useEffect} from 'react';
 import Header from './components/Header';
 import Input from './components/Input';
@@ -33,10 +33,15 @@ export default function App() {
 
   // define a function to handle the received data
   function handleReceivedData(data) {
-    setGoals((currentGoals) => [
-      ...currentGoals,
-      { text: data, id: Math.random()}
-    ]);
+    // setGoals((currentGoals) => [
+    //   ...currentGoals,
+    //   { text: data, id: Math.random()}
+    // ]);
+    // trying out Neda's way
+    let newGoal = { text: data, id: Math.random().toString() };
+    setGoals((prevGoals) => {
+      return [...prevGoals, newGoal];
+    });
     setIsModalVisible(false);
   }
 
@@ -97,6 +102,20 @@ export default function App() {
           renderItem={({ item }) => (
             <GoalItem deleteHandler={handleDeletedGoals} goalObj={item} />
           )}
+          // to show a header "My Goal List" when user adds a goal
+          ListHeaderComponent={goals.length > 0 ? (
+            <Text style={styles.listPropText}>My Goal List</Text> 
+          ) : null }
+          // to show "no goals to show" when the list is empty
+          ListEmptyComponent={
+            <Text style={styles.listPropText}>No goals to show</Text>
+          }
+          // to show a footer button "Delete All" when goals.length > 0
+          ListFooterComponent={goals.length > 0 ? (
+            <Button title="Delete All" onPress={handleDeleteAllGoals} />
+          ) : null}
+          // to show a separator between each goal, but not at the top or bottom
+          ItemSeparatorComponent={() => <View style={styles.goalSeparator} />}
         />
       </View>
     </SafeAreaView>
@@ -106,15 +125,6 @@ export default function App() {
 const styles = StyleSheet.create({
   scrollViewContainer: {
     alignItems: 'center',
-  },
-  text: {
-    fontSize: 20,
-    color: 'blue',
-    padding: 5,
-  },
-  userInput: {
-    backgroundColor: 'skyblue',
-    borderRadius: 100,
   },
   safeArea: {
     flex: 1,
@@ -133,7 +143,6 @@ const styles = StyleSheet.create({
     flex: 4,
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#dcd',
   },
   listPropText: {

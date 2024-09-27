@@ -21,10 +21,9 @@ const styles = StyleSheet.create({
     userInput: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: 'skyblue',
+      backgroundColor: 'darkgrey',
       borderRadius: 5,
       marginVertical: 5,
-    //   padding: 5,
     },
     text: {
       fontSize: 30,
