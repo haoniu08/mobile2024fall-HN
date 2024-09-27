@@ -84,9 +84,9 @@ export default function App() {
             <GoalItem deleteHandler={handleDeletedGoals} goalObj={item} />
           )}
           // to show a header "My Goal List" when user adds a goal
-          ListHeaderComponent={
-            <Text style={styles.listPropText}>My Goal List</Text>
-          }
+          ListHeaderComponent={goals.length > 0 ? (
+            <Text style={styles.listPropText}>My Goal List</Text> 
+          ) : null }
           // to show "no goals to show" when the list is empty
           ListEmptyComponent={
             <Text style={styles.listPropText}>No goals to show</Text>
