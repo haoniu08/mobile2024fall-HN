@@ -2,10 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { 
   Button, 
   StyleSheet, 
-  Text, 
   View, 
   SafeAreaView, 
-  ScrollView, 
   FlatList } from 'react-native';
 import {useState, useEffect} from 'react';
 import Header from './components/Header';
