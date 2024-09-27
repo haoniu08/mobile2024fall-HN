@@ -31,10 +31,15 @@ export default function App() {
 
   // define a function to handle the received data
   function handleReceivedData(data) {
-    setGoals((currentGoals) => [
-      ...currentGoals,
-      { text: data, id: Math.random()}
-    ]);
+    // setGoals((currentGoals) => [
+    //   ...currentGoals,
+    //   { text: data, id: Math.random()}
+    // ]);
+    // trying out Neda's way
+    let newGoal = { text: data, id: Math.random().toString() };
+    setGoals((prevGoals) => {
+      return [...prevGoals, newGoal];
+    });
     setIsModalVisible(false);
   }
 
@@ -72,6 +77,7 @@ export default function App() {
       <View style={styles.bottomSection}>
         {/* <test FlatList */}
         <FlatList
+          contentContainerStyle={styles.scrollViewContainer}
           data={goals}
           renderItem={({ item }) => (
             <GoalItem deleteHandler={handleDeletedGoals} goalObj={item} />
@@ -91,10 +97,6 @@ const styles = StyleSheet.create({
     color: 'blue',
     padding: 5,
   },
-  userInput: {
-    backgroundColor: 'skyblue',
-    borderRadius: 100,
-  },
   safeArea: {
     flex: 1,
     backgroundColor: 'lightblue',
@@ -113,7 +115,6 @@ const styles = StyleSheet.create({
     flex: 4,
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#dcd',
   },
 });
