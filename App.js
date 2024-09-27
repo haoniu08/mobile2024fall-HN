@@ -114,6 +114,8 @@ export default function App() {
           ListFooterComponent={goals.length > 0 ? (
             <Button title="Delete All" onPress={handleDeleteAllGoals} />
           ) : null}
+          // to show a separator between each goal, but not at the top or bottom
+          ItemSeparatorComponent={() => <View style={styles.goalSeparator} />}
         />
       </View>
     </SafeAreaView>
@@ -148,5 +150,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 30,
     color: 'purple',
+  },
+  goalSeparator: {
+    height: 0.5,
+    width: 'auto',
+    backgroundColor: 'grey',
+    padding: 2,
+    marginVertical: 10,
   },
 });
