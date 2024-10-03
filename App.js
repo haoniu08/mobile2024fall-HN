@@ -15,6 +15,10 @@ const headerTheme = {
   }
 }
 
+function handleWarningPress () {
+  console.log("Warning")
+} 
+
 export default function App() {
   return (
     <NavigationContainer theme={headerTheme}>
@@ -38,7 +42,7 @@ export default function App() {
                 return (
                   <Button 
                     title="Warning" 
-                    onPress={console.log("Warning")}
+                    onPress={handleWarningPress}
                   />                
               );}
             }
