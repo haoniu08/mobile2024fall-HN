@@ -12,7 +12,7 @@ import Header from './Header.js'
 import Input from './Input';
 import GoalItem from './GoalItem';
 
-export default function Home() {
+export default function Home({ navigation }) {
 
   const appName = "Don Baguette";
   // define a state variable to store the received data
@@ -30,6 +30,11 @@ export default function Home() {
     }));
     setGoals(initialGoals);
   }, []);
+
+  // the function handles goal detail on press
+  function handleGoalPress () {
+    navigation.navigate("Details");
+  }
 
   // define a function to handle the received data
   function handleReceivedData(data) {
@@ -99,13 +104,19 @@ export default function Home() {
         <FlatList
           contentContainerStyle={styles.scrollViewContainer}
           data={goals}
-          renderItem={({ item }) => (
-            <GoalItem deleteHandler={handleDeletedGoals} goalObj={item} />
-          )}
+          renderItem={({ item }) => {
+            return (
+              <GoalItem 
+                pressHandler={handleGoalPress}
+                deleteHandler={handleDeletedGoals}
+                goalObj={item}
+              />
+            );
+          }}
           // to show a header "My Goal List" when user adds a goal
-          ListHeaderComponent={goals.length > 0 ? (
-            <Text style={styles.listPropText}>My Goal List</Text> 
-          ) : null }
+          ListHeaderComponent={
+            goals.length && <Text style={styles.listPropText}>My Goal List</Text> 
+          }
           // to show "no goals to show" when the list is empty
           ListEmptyComponent={
             <Text style={styles.listPropText}>No goals to show</Text>
