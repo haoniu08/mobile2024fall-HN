@@ -29,16 +29,7 @@ export default function App() {
           component={GoalDetails} 
           options={({route}) => {
             return {
-              title: route.params ? route.params.goalData.text : "xxx",
-              headerRight: () => {
-                return (
-                  <Button 
-                    title="Warning" 
-                    onPress={handleWarningPress}
-                  />                
-              );}
-            }
-            
+              title: route.params ? route.params.goalData.text : "xxx",}
           }}
         />
       </ Stack.Navigator>
