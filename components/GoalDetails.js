@@ -1,14 +1,27 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Button } from 'react-native'
 import React from 'react'
 
-export default function GoalDetails({route}) {
+export default function GoalDetails({navigation, route}) {
+
+  console.log(route);
+  
+  function moreDetailsHandler() {
+    navigation.push("Details");
+  }
+
   return (
     <View>
-      <Text>
-        Goal details: {"\n"} 
-        text: {route.params.goalData.text} {"\n"}
-        id: {route.params.goalData.id}
-      </Text>
+    
+      {route.params ? (
+        <Text>
+            Goal details: {"\n"} 
+            text: {route.params.goalData.text} {"\n"}
+            id: {route.params.goalData.id}
+        </Text>
+       ) : (
+        <Text>show more details</Text>
+       )}
+       <Button title="More Details" onPress={moreDetailsHandler}/>
     </View>
   )
 }
