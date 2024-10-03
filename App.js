@@ -2,10 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import { 
   Button, 
   StyleSheet, 
-  Text, 
   View, 
+  Text,
   SafeAreaView, 
-  FlatList } from 'react-native';
+  FlatList, 
+  Alert} from 'react-native';
 import {useState, useEffect} from 'react';
 import Header from './components/Header';
 import Input from './components/Input';
@@ -23,7 +24,7 @@ export default function App() {
 
   // function to generate 40 goal, to test the scroll view
   useEffect(() => {
-    const initialGoals = Array.from({ length: 40 }, (_, i) => ({
+    const initialGoals = Array.from({ length: 10 }, (_, i) => ({
       text: `Goal ${i + 1}`,
       id: Math.random().toString(),
     }));
@@ -32,19 +33,15 @@ export default function App() {
 
   // define a function to handle the received data
   function handleReceivedData(data) {
-    
     // setGoals((currentGoals) => [
     //   ...currentGoals,
     //   { text: data, id: Math.random()}
     // ]);
-    // setGoals([goals, { text: data, id: Math.random() }]);
-
     // trying out Neda's way
     let newGoal = { text: data, id: Math.random().toString() };
     setGoals((prevGoals) => {
       return [...prevGoals, newGoal];
     });
-
     setIsModalVisible(false);
   }
 
@@ -56,6 +53,24 @@ export default function App() {
     setGoals((prevGoals) => {
       return prevGoals.filter((goalObj) => goalObj.id !== deletedId);
     });
+  }
+
+  function handleDeleteAllGoals() {
+    Alert.alert(
+      "Delete All Goals",
+      "Are you sure you want to delete all goals?",
+      [
+        {
+          text: "No",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () => 
+            setGoals([])
+        }
+      ]
+    );
   }
 
   return (
@@ -86,7 +101,21 @@ export default function App() {
           data={goals}
           renderItem={({ item }) => (
             <GoalItem deleteHandler={handleDeletedGoals} goalObj={item} />
-)}
+          )}
+          // to show a header "My Goal List" when user adds a goal
+          ListHeaderComponent={goals.length > 0 ? (
+            <Text style={styles.listPropText}>My Goal List</Text> 
+          ) : null }
+          // to show "no goals to show" when the list is empty
+          ListEmptyComponent={
+            <Text style={styles.listPropText}>No goals to show</Text>
+          }
+          // to show a footer button "Delete All" when goals.length > 0
+          ListFooterComponent={goals.length > 0 ? (
+            <Button title="Delete All" onPress={handleDeleteAllGoals} />
+          ) : null}
+          // to show a separator between each goal, but not at the top or bottom
+          ItemSeparatorComponent={() => <View style={styles.goalSeparator} />}
         />
       </View>
     </SafeAreaView>
@@ -97,18 +126,12 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     alignItems: 'center',
   },
-  text: {
-    fontSize: 20,
-    color: 'blue',
-    padding: 5,
-  },
   safeArea: {
     flex: 1,
-    backgroundColor: 'lightblue',
   },
   topSection: {
     flex: 1,
-    backgroundColor: 'lime',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -120,7 +143,19 @@ const styles = StyleSheet.create({
     flex: 4,
     width: '100%',
     justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: '#dcd',
+  },
+  listPropText: {
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 30,
+    color: 'purple',
+  },
+  goalSeparator: {
+    height: 0.5,
+    width: 'auto',
+    backgroundColor: 'grey',
+    padding: 2,
+    marginVertical: 10,
   },
 });

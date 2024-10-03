@@ -21,15 +21,13 @@ const styles = StyleSheet.create({
     userInput: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: 'white',
+      backgroundColor: 'darkgrey',
       borderRadius: 5,
       marginVertical: 5,
-      alignItems: 'center',
-    //   padding: 5,
     },
     text: {
       fontSize: 30,
-      color: 'blue',
+      color: 'purple',
       padding: 5,
     },
   });
