@@ -59,7 +59,9 @@ export default function Home({ navigation }) {
 
   function handleDeletedGoals(deletedId) {
     setGoals((prevGoals) => {
-      return prevGoals.filter((goalObj) => goalObj.id !== deletedId);
+      return prevGoals.filter((goalObj) => { 
+        return goalObj.id !== deletedId}
+      );
     });
   }
 
