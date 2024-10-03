@@ -1,10 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export default function GoalDetails() {
+export default function GoalDetails({route}) {
   return (
     <View>
-      <Text>GoalDetails</Text>
+      <Text>
+        Goal details: {"\n"} 
+        text: {route.params.goalData.text} {"\n"}
+        id: {route.params.goalData.id}
+      </Text>
     </View>
   )
 }

@@ -9,7 +9,7 @@ export default function GoalItem({ goalObj, deleteHandler, pressHandler }) {
   }
 
   function handlePress(){
-    pressHandler();
+    pressHandler(goalObj);
   }
 
   return (
