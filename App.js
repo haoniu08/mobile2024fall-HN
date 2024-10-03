@@ -7,16 +7,24 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 const Stack = createStackNavigator();
 
+// trying out prop for lab 1, header styling
+const headerTheme = {
+  colors: {
+    // background: 'rgb(55, 255, 255)',
+    text: 'rgb(28, 28, 30)',
+  }
+}
+
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={headerTheme}>
       <Stack.Navigator>
         <Stack.Screen 
           name="Home" 
           component={Home} 
           options={{
-            headerStyle: {backgroundColor: "violet"},
-            headerTintColor: "white",
+            // headerStyle: {backgroundColor: "violet"},
+            // headerTintColor: "white",
             title : "My Goals",
           }}
         />
@@ -25,18 +33,16 @@ export default function App() {
           component={GoalDetails} 
           options={({route}) => {
             return {
-              title: route.params ? route.params.goalData.text : "Goal Details",
+              title: route.params ? route.params.goalData.text : "xxx",
               headerRight: () => {
                 return (
                   <Button 
-                    title="headerRight button"
-                    onPress={ () => {
-                      
-                    }}
+                    title="Warning" 
+                    onPress={console.log("Warning")}
                   />                
-                );
-              }
+              );}
             }
+            
           }}
         />
       </ Stack.Navigator>

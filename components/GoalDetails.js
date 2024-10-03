@@ -15,8 +15,8 @@ export default function GoalDetails({navigation, route}) {
       {route.params ? (
         <Text>
             Goal details: {"\n"} 
-            text: {route.params.goalData.text} {"\n"}
-            id: {route.params.goalData.id}
+            Text: {route.params.goalData.text} {"\n"}
+            Id: {route.params.goalData.id}
         </Text>
        ) : (
         <Text>show more details</Text>

@@ -34,7 +34,7 @@ export default function Home({ navigation }) {
   // the function handles goal detail on press
   function handleGoalPress (pressedGoal) {
     // receive the goal obj, and print out the info
-    console.log("goal id:", pressedGoal.id, "goal text:", pressedGoal.text)
+    console.log("Goal Id:", pressedGoal.id, "Goal Text:", pressedGoal.text)
     // nevi to GoalDetails and pass goal obj as params
     navigation.navigate("Details", {goalData: pressedGoal});
   }
