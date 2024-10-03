@@ -2,14 +2,14 @@
 import React from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
 
-export default function GoalItem({ goalObj, deleteHandler, pressHandler }) {
+export default function GoalItem({ goalObj, deleteHandler, navigation }) {
 
   function handleDelete(){
     deleteHandler(goalObj.id);
   }
 
   function handlePress(){
-    pressHandler(goalObj);
+    navigation.navigate('Details', { goalData: goalObj });
   }
 
   return (
