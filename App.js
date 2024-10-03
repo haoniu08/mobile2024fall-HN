@@ -20,7 +20,15 @@ export default function App() {
             title : "My Goals",
           }}
         />
-        <Stack.Screen name="Details" component={GoalDetails} />
+        <Stack.Screen 
+          name="Details" 
+          component={GoalDetails} 
+          options={({route}) => {
+            return {
+              title: route.params ? route.params.goalData.text : "More Details",
+            }
+          }}
+        />
       </ Stack.Navigator>
     </NavigationContainer>
   )
