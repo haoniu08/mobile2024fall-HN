@@ -7,30 +7,22 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 const Stack = createStackNavigator();
 
-// trying out prop for lab 1, header styling
-const headerTheme = {
-  colors: {
-    // background: 'rgb(55, 255, 255)',
-    text: 'rgb(28, 28, 30)',
-  }
-}
-
 function handleWarningPress () {
   console.log("Warning")
 } 
 
 export default function App() {
   return (
-    <NavigationContainer theme={headerTheme}>
-      <Stack.Navigator>
+    <NavigationContainer>
+      <Stack.Navigator 
+        screenOptions={{
+          headerStyle: { backgroundColor: "violet"},
+          headerTintColor: "white",
+        }}
+      >
         <Stack.Screen 
-          name="Home" 
+          name="My Goals" 
           component={Home} 
-          options={{
-            // headerStyle: {backgroundColor: "violet"},
-            // headerTintColor: "white",
-            title : "My Goals",
-          }}
         />
         <Stack.Screen 
           name="Details" 
