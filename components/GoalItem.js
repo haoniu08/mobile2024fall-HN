@@ -2,10 +2,14 @@
 import React from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
 
-export default function GoalItem({ goalObj, deleteHandler }) {
+export default function GoalItem({ goalObj, deleteHandler, pressHandler }) {
 
   function handleDelete(){
     deleteHandler(goalObj.id);
+  }
+
+  function handlePress(){
+    pressHandler(goalObj);
   }
 
   return (
@@ -13,6 +17,7 @@ export default function GoalItem({ goalObj, deleteHandler }) {
       <Text style={styles.text}>{goalObj.text}</Text>
       <Button title="x" color="grey" onPress={handleDelete} />
       {/* <Can be onPress={() => onDelete(goalObj.id)}>  */}
+      <Button title="i" color = "grey" onPress={handlePress}/>
     </View>
   );
 }
