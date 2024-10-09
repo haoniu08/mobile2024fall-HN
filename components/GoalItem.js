@@ -15,6 +15,8 @@ export default function GoalItem({ goalObj, deleteHandler, navigation }) {
   return (
     <Pressable
       onPress={handlePress}
+      // add android_ripple prop
+      android_ripple={{color: 'purple'}}
       // onLongPress={handleDelete}
     > 
       <View style={styles.userInput}>
