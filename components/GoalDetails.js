@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Button } from 'react-native'
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 
 export default function GoalDetails({navigation, route}) {
   
@@ -18,14 +18,18 @@ export default function GoalDetails({navigation, route}) {
     navigation.push("Details");
   }
 
-  navigation.setOptions({
-    headerRight: () => (
-      <Button 
-        title="Warning" 
-        onPress={handleWarningPress}
-      />
-    ),
-  });
+  // fixing Cannot update a component (`StackNavigator`) 
+  // while rendering a different component (`GoalDetails`)
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button 
+          title="Warning" 
+          onPress={handleWarningPress}
+        />
+      ),
+    });
+  }, [navigation]);
 
   return (
     <View>
