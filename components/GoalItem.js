@@ -17,7 +17,10 @@ export default function GoalItem({ goalObj, deleteHandler, navigation }) {
       onPress={handlePress}
       // add android_ripple prop
       android_ripple={{color: 'purple'}}
-      // onLongPress={handleDelete}
+      // use style prop to add visual style on IOS
+      style = {({ pressed }) => [
+        styles.pressable, pressed && styles.pressedStyle
+      ]}
     > 
       <View style={styles.userInput}>
         <Text style={styles.text}>{goalObj.text}</Text>
@@ -39,5 +42,14 @@ const styles = StyleSheet.create({
       fontSize: 30,
       color: 'purple',
       padding: 5,
+    },
+    pressable : {
+      backgroundColor: 'blue',
+      padding: 5,
+      borderRadius: 10,
+    },
+    pressedStyle: {
+      opacity: 0.3,
+      backgroundColor: 'purple',
     },
   });
