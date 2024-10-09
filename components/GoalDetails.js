@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, Button } from 'react-native'
 import React, { useState, useLayoutEffect } from 'react';
+import PressableButton from './PressableButton';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default function GoalDetails({navigation, route}) {
   
@@ -23,10 +25,19 @@ export default function GoalDetails({navigation, route}) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button 
-          title="Warning" 
-          onPress={handleWarningPress}
-        />
+
+        // replace button with PressableButton
+        <PressableButton 
+          pressedFunction={handleWarningPress} 
+          componentStyle={styles.buttonStyle}
+        >
+          <AntDesign name="warning" size={24} color="black" />
+        </PressableButton>
+
+        // <Button 
+        //   title="Warning" 
+        //   onPress={handleWarningPress}
+        // />
       ),
     });
   }, [navigation]);
