@@ -20,8 +20,6 @@ export default function GoalItem({ goalObj, deleteHandler, navigation }) {
       <View style={styles.userInput}>
         <Text style={styles.text}>{goalObj.text}</Text>
         <Button title="x" color="grey" onPress={handleDelete} />
-        {/* <Can be onPress={() => onDelete(goalObj.id)}>  */}
-        <Button title="i" color = "grey" onPress={handlePress}/>
       </View>
     </Pressable>
   );
