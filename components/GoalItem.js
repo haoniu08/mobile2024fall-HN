@@ -1,6 +1,7 @@
 // file for abstracting the goal item component, rnfs
 import React from 'react';
 import { Button, View, Text, StyleSheet, Pressable } from 'react-native';
+import PressableButton from './PressableButton';
 
 export default function GoalItem({ goalObj, deleteHandler, navigation }) {
 
@@ -24,7 +25,12 @@ export default function GoalItem({ goalObj, deleteHandler, navigation }) {
     > 
       <View style={styles.userInput}>
         <Text style={styles.text}>{goalObj.text}</Text>
-        <Button title="x" color="grey" onPress={handleDelete} />
+        <PressableButton 
+          pressedFunction={handleDelete} 
+          componentStyle={styles.buttonStyle}
+        >
+          <Text>X</Text>
+        </PressableButton>
       </View>
     </Pressable>
   );
