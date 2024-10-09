@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button, View, Text, StyleSheet, Pressable } from 'react-native';
 import PressableButton from './PressableButton';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default function GoalItem({ goalObj, deleteHandler, navigation }) {
 
@@ -29,7 +30,7 @@ export default function GoalItem({ goalObj, deleteHandler, navigation }) {
           pressedFunction={handleDelete} 
           componentStyle={styles.buttonStyle}
         >
-          <Text>X</Text>
+          <AntDesign name="delete" size={24} color="black" />
         </PressableButton>
       </View>
     </Pressable>
