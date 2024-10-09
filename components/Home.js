@@ -115,6 +115,8 @@ export default function Home({ navigation }) {
                 pressHandler={handleGoalPress}
                 deleteHandler={handleDeletedGoals}
                 goalObj={item}
+                // enables navigation directly from goalItems
+                navigation={navigation}
               />
             );
           }}
