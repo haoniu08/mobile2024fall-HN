@@ -33,7 +33,7 @@ export default function GoalItem({ goalObj, deleteHandler, navigation }) {
           componentStyle={styles.buttonStyle}
           pressedStyle={styles.pressedStyle}
         >
-          <Text>x</Text>
+          <AntDesign name="delete" size={18} color="black" style={styles.iconStyle}/>
         </PressableButton>
       </View>
     </Pressable>
@@ -66,7 +66,10 @@ const styles = StyleSheet.create({
     // overide the default style of button
     buttonStyle: {
       backgroundColor: 'red',
-      padding: 5,
+      // padding: 5,
       borderRadius: 10,
     },
+    iconStyle: {
+      backgroundColor: 'lime',
+    }
   });
