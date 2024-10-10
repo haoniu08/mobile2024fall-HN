@@ -1,6 +1,6 @@
 // file for abstracting the goal item component, rnfs
 import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
 import PressableButton from './PressableButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -10,6 +10,23 @@ export default function GoalItem({ goalObj, deleteHandler, navigation }) {
     deleteHandler(goalObj.id);
   }
 
+  function handleItemLongPress(){
+    Alert.alert (
+      "Delete Goal",
+      "Are you sure you want to delete this goal?",
+      [
+        {
+          text: "No",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () => deleteHandler(goalObj.id)
+        }
+      ]
+    )
+  }
+
   function handlePress(){
     navigation.navigate('Details', { goalData: goalObj });
   }
@@ -17,6 +34,7 @@ export default function GoalItem({ goalObj, deleteHandler, navigation }) {
   return (
     <Pressable
       onPress={handlePress}
+      onLongPress={handleItemLongPress}
       // add android_ripple prop
       android_ripple={{color: 'purple', radius: 20}}
       // use style prop to add visual style on IOS
