@@ -59,4 +59,10 @@ export default function GoalDetails({navigation, route}) {
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  // overiding the default button style
+  buttonStyle: {
+    backgroundColor: 'gray',
+  }
+
+})
