@@ -1,13 +1,30 @@
 // file for abstracting the goal item component, rnfs
 import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
 import PressableButton from './PressableButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default function GoalItem({ goalObj, deleteHandler, navigation }) {
+export default function GoalItem({ goalObj, deleteHandler, navigation, separators }) {
 
   function handleDelete(){
     deleteHandler(goalObj.id);
+  }
+
+  function handleItemLongPress(){
+    Alert.alert (
+      "Delete Goal",
+      "Are you sure you want to delete this goal?",
+      [
+        {
+          text: "No",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () => deleteHandler(goalObj.id)
+        }
+      ]
+    )
   }
 
   function handlePress(){
@@ -17,6 +34,9 @@ export default function GoalItem({ goalObj, deleteHandler, navigation }) {
   return (
     <Pressable
       onPress={handlePress}
+      onLongPress={handleItemLongPress}
+      onPressIn={() => separators.highlight()}
+      onPressOut={() => separators.unhighlight()}
       // add android_ripple prop
       android_ripple={{color: 'purple', radius: 20}}
       // use style prop to add visual style on IOS
@@ -61,7 +81,7 @@ const styles = StyleSheet.create({
     // overide the default pressed style of button
     pressedStyle: {
       opacity: 0.5,
-      backgroundColor: 'yellow',
+      backgroundColor: 'lime',
     },
     // overide the default style of button
     buttonStyle: {
