@@ -18,10 +18,12 @@ export default function GoalItem({ goalObj, deleteHandler, navigation }) {
     <Pressable
       onPress={handlePress}
       // add android_ripple prop
-      android_ripple={{color: 'purple'}}
+      android_ripple={{color: 'purple', radius: 20}}
       // use style prop to add visual style on IOS
       style = {({ pressed }) => [
-        styles.pressable, pressed && styles.pressedStyle
+        styles.pressable, 
+        // let the pressed style override the default style, if pressed
+        pressed && styles.pressedStyle
       ]}
     > 
       <View style={styles.userInput}>
