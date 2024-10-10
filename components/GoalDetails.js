@@ -31,7 +31,7 @@ export default function GoalDetails({navigation, route}) {
           pressedFunction={handleWarningPress} 
           componentStyle={styles.buttonStyle}
         >
-          <AntDesign name="warning" size={24} color="black" />
+          <AntDesign name="warning" size={20} color="black" style={styles.warningButton}/>
         </PressableButton>
 
         // <Button 
@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
   // overiding the default button style
   buttonStyle: {
     backgroundColor: 'gray',
+  },
+  warningButton: {
+    backgroundColor: 'red',
   }
-
 })
