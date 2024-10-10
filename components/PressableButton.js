@@ -1,14 +1,15 @@
-import { StyleSheet, Text, View, Pressable } from 'react-native'
+import { StyleSheet, View, Pressable } from 'react-native'
 import React from 'react'
 
-const PressableButton = ({ children, pressedFunction, componentStyle }) => {
+const PressableButton = ({ children, pressedFunction, componentStyle, pressedStyle }) => {
     return (
         <Pressable
             onPress={pressedFunction}
             style={({ pressed }) => [
                 styles.defaultStyle,
                 componentStyle,
-                pressed && styles.pressedStyle
+                pressed && styles.defaultPressedStyle,
+                pressed && pressedStyle
             ]}
         >
             <View>{children}</View>
@@ -17,14 +18,14 @@ const PressableButton = ({ children, pressedFunction, componentStyle }) => {
 };
 
 const styles = StyleSheet.create({
-    pressedStyle: {
-        opacity: 0.3,
-        backgroundColor: 'purple',
-    },
     defaultStyle: {
         backgroundColor: 'skyblue',
         padding: 5,
         borderRadius: 10,
+    },
+    defaultPressedStyle: {
+        opacity: 0.7,
+        backgroundColor: 'black',
     },
 })
 

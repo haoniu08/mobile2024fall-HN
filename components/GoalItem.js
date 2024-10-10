@@ -1,6 +1,6 @@
 // file for abstracting the goal item component, rnfs
 import React from 'react';
-import { Button, View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import PressableButton from './PressableButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -18,19 +18,22 @@ export default function GoalItem({ goalObj, deleteHandler, navigation }) {
     <Pressable
       onPress={handlePress}
       // add android_ripple prop
-      android_ripple={{color: 'purple'}}
+      android_ripple={{color: 'purple', radius: 20}}
       // use style prop to add visual style on IOS
       style = {({ pressed }) => [
-        styles.pressable, pressed && styles.pressedStyle
+        styles.pressable, 
+        // let the pressed style override the default style, if pressed
+        pressed && styles.pressedStyle
       ]}
     > 
       <View style={styles.userInput}>
         <Text style={styles.text}>{goalObj.text}</Text>
-        <PressableButton 
+        <PressableButton
           pressedFunction={handleDelete} 
           componentStyle={styles.buttonStyle}
+          pressedStyle={styles.pressedStyle}
         >
-          <AntDesign name="delete" size={24} color="black" />
+          <AntDesign name="delete" size={18} color="black" style={styles.iconStyle}/>
         </PressableButton>
       </View>
     </Pressable>
@@ -55,8 +58,18 @@ const styles = StyleSheet.create({
       padding: 5,
       borderRadius: 10,
     },
+    // overide the default pressed style of button
     pressedStyle: {
-      opacity: 0.3,
-      backgroundColor: 'purple',
+      opacity: 0.5,
+      backgroundColor: 'yellow',
     },
+    // overide the default style of button
+    buttonStyle: {
+      backgroundColor: 'red',
+      // padding: 5,
+      borderRadius: 10,
+    },
+    iconStyle: {
+      backgroundColor: 'lime',
+    }
   });
