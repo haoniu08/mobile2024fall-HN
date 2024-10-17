@@ -11,9 +11,12 @@ import {useState, useEffect} from 'react';
 import Header from './Header.js'
 import Input from './Input';
 import GoalItem from './GoalItem';
-// import { app } from '../Firebase/firebaseSetup';
+import { database } from '../Firebase/firebaseSetup';
+import { writeToDB } from '../Firebase/firestoreHelper';
 
 export default function Home({ navigation }) {
+
+  console.log(database);
 
   const appName = "Don Baguette";
   // define a state variable to store the received data
@@ -23,14 +26,16 @@ export default function Home({ navigation }) {
   // use array to store multiple goals instead just one text
   const [goals, setGoals] = useState([]);
 
+  const collectionName = "Goals";
+
   // function to generate 40 goal, to test the scroll view
-  useEffect(() => {
-    const initialGoals = Array.from({ length: 10 }, (_, i) => ({
-      text: `Goal ${i + 1}`,
-      id: Math.random().toString(),
-    }));
-    setGoals(initialGoals);
-  }, []);
+  // useEffect(() => {
+  //   const initialGoals = Array.from({ length: 10 }, (_, i) => ({
+  //     text: `Goal ${i + 1}`,
+  //     id: Math.random().toString(),
+  //   }));
+  //   setGoals(initialGoals);
+  // }, []);
 
   // the function handles goal detail on press
   function handleGoalPress (pressedGoal) {
@@ -46,8 +51,13 @@ export default function Home({ navigation }) {
     //   ...currentGoals,
     //   { text: data, id: Math.random()}
     // ]);
+
     // trying out Neda's way
-    let newGoal = { text: data, id: Math.random().toString() };
+    let newGoal = { text: data};
+
+    // writing to firebase
+    writeToDB(newGoal, collectionName);
+
     setGoals((prevGoals) => {
       return [...prevGoals, newGoal];
     });
