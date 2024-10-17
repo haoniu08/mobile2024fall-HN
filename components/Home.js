@@ -11,6 +11,7 @@ import {useState, useEffect} from 'react';
 import Header from './Header.js'
 import Input from './Input';
 import GoalItem from './GoalItem';
+// import { app } from '../Firebase/firebaseSetup';
 
 export default function Home({ navigation }) {
 
