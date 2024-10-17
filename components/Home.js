@@ -14,6 +14,7 @@ import GoalItem from './GoalItem';
 import { database } from '../Firebase/firebaseSetup';
 import { writeToDB } from '../Firebase/firestoreHelper';
 import { collection, onSnapshot } from 'firebase/firestore';
+import { doc } from 'firebase/firestore/lite';
 
 export default function Home({ navigation }) {
 
@@ -47,7 +48,7 @@ export default function Home({ navigation }) {
       querySnapshot.forEach((docSnapShot) => {
         // populate the array
         // console.log(docSnapShot.data());
-        goalList.push(docSnapShot.data());
+        goalList.push({...docSnapShot.data(), id:docSnapShot.id});
       })
       // set the goals array to the array
       setGoals(goalList);
