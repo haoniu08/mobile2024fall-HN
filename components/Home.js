@@ -12,7 +12,7 @@ import Header from './Header.js'
 import Input from './Input';
 import GoalItem from './GoalItem';
 import { database } from '../Firebase/firebaseSetup';
-import { writeToDB, deleteFromDB } from '../Firebase/firestoreHelper';
+import { writeToDB, deleteFromDB, deleteAllFromDB } from '../Firebase/firestoreHelper';
 import { collection, onSnapshot } from 'firebase/firestore';
 
 
@@ -107,7 +107,8 @@ export default function Home({ navigation }) {
         {
           text: "Yes",
           onPress: () => 
-            setGoals([])
+            // setGoals([])
+          deleteAllFromDB(collectionName)
         }
       ]
     );
