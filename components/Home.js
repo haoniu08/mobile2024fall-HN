@@ -12,9 +12,9 @@ import Header from './Header.js'
 import Input from './Input';
 import GoalItem from './GoalItem';
 import { database } from '../Firebase/firebaseSetup';
-import { writeToDB } from '../Firebase/firestoreHelper';
+import { writeToDB, deleteFromDB } from '../Firebase/firestoreHelper';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { doc } from 'firebase/firestore/lite';
+
 
 export default function Home({ navigation }) {
 
@@ -22,7 +22,7 @@ export default function Home({ navigation }) {
 
   const appName = "Don Baguette";
   // define a state variable to store the received data
-  const [receivedData, setReceivedData] = useState("");
+  // const [receivedData, setReceivedData] = useState("");
   // set the initial state of the modal to false
   const [isModalVisible, setIsModalVisible] = useState(false);
   // use array to store multiple goals instead just one text
@@ -87,11 +87,12 @@ export default function Home({ navigation }) {
   }
 
   function handleDeletedGoals(deletedId) {
-    setGoals((prevGoals) => {
-      return prevGoals.filter((goalObj) => { 
-        return goalObj.id !== deletedId}
-      );
-    });
+    // setGoals((prevGoals) => {
+    //   return prevGoals.filter((goalObj) => { 
+    //     return goalObj.id !== deletedId}
+    //   );
+    // });
+    deleteFromDB(deletedId, collectionName)
   }
 
   function handleDeleteAllGoals() {
