@@ -11,25 +11,49 @@ import {useState, useEffect} from 'react';
 import Header from './Header.js'
 import Input from './Input';
 import GoalItem from './GoalItem';
+import { database } from '../Firebase/firebaseSetup';
+import { writeToDB, deleteFromDB, deleteAllFromDB } from '../Firebase/firestoreHelper';
+import { collection, onSnapshot } from 'firebase/firestore';
+
 
 export default function Home({ navigation }) {
 
+  console.log(database);
+
   const appName = "Don Baguette";
   // define a state variable to store the received data
-  const [receivedData, setReceivedData] = useState("");
+  // const [receivedData, setReceivedData] = useState("");
   // set the initial state of the modal to false
   const [isModalVisible, setIsModalVisible] = useState(false);
   // use array to store multiple goals instead just one text
   const [goals, setGoals] = useState([]);
 
+  const collectionName = "Goals";
+
   // function to generate 40 goal, to test the scroll view
-  useEffect(() => {
-    const initialGoals = Array.from({ length: 10 }, (_, i) => ({
-      text: `Goal ${i + 1}`,
-      id: Math.random().toString(),
-    }));
-    setGoals(initialGoals);
-  }, []);
+  // useEffect(() => {
+  //   const initialGoals = Array.from({ length: 10 }, (_, i) => ({
+  //     text: `Goal ${i + 1}`,
+  //     id: Math.random().toString(),
+  //   }));
+  //   setGoals(initialGoals);
+  // }, []);
+
+  // useEffect to read data from firebase, listen to real-time changes
+  useEffect(()=>{
+    // querySnapshot is a list/array of documentSnapshots
+    onSnapshot(collection(database, collectionName), (querySnapshot) => {
+      // define an array here
+      goalList = [];
+      querySnapshot.forEach((docSnapShot) => {
+        // populate the array
+        // console.log(docSnapShot.data());
+        goalList.push({...docSnapShot.data(), id:docSnapShot.id});
+      })
+      // set the goals array to the array
+      setGoals(goalList);
+    });
+  },[]);
 
   // the function handles goal detail on press
   function handleGoalPress (pressedGoal) {
@@ -45,11 +69,16 @@ export default function Home({ navigation }) {
     //   ...currentGoals,
     //   { text: data, id: Math.random()}
     // ]);
+
     // trying out Neda's way
-    let newGoal = { text: data, id: Math.random().toString() };
-    setGoals((prevGoals) => {
-      return [...prevGoals, newGoal];
-    });
+    let newGoal = { text: data};
+
+    // writing to firebase
+    writeToDB(newGoal, collectionName);
+
+    // setGoals((prevGoals) => {
+    //   return [...prevGoals, newGoal];
+    // });
     setIsModalVisible(false);
   }
 
@@ -58,11 +87,12 @@ export default function Home({ navigation }) {
   }
 
   function handleDeletedGoals(deletedId) {
-    setGoals((prevGoals) => {
-      return prevGoals.filter((goalObj) => { 
-        return goalObj.id !== deletedId}
-      );
-    });
+    // setGoals((prevGoals) => {
+    //   return prevGoals.filter((goalObj) => { 
+    //     return goalObj.id !== deletedId}
+    //   );
+    // });
+    deleteFromDB(deletedId, collectionName)
   }
 
   function handleDeleteAllGoals() {
@@ -77,7 +107,8 @@ export default function Home({ navigation }) {
         {
           text: "Yes",
           onPress: () => 
-            setGoals([])
+            // setGoals([])
+          deleteAllFromDB(collectionName)
         }
       ]
     );
