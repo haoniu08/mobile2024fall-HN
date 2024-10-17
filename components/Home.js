@@ -13,6 +13,7 @@ import Input from './Input';
 import GoalItem from './GoalItem';
 import { database } from '../Firebase/firebaseSetup';
 import { writeToDB } from '../Firebase/firestoreHelper';
+import { collection, onSnapshot } from 'firebase/firestore';
 
 export default function Home({ navigation }) {
 
@@ -37,6 +38,22 @@ export default function Home({ navigation }) {
   //   setGoals(initialGoals);
   // }, []);
 
+  // useEffect to read data from firebase, listen to real-time changes
+  useEffect(()=>{
+    // querySnapshot is a list/array of documentSnapshots
+    onSnapshot(collection(database, collectionName), (querySnapshot) => {
+      // define an array here
+      goalList = [];
+      querySnapshot.forEach((docSnapShot) => {
+        // populate the array
+        // console.log(docSnapShot.data());
+        goalList.push(docSnapShot.data());
+      })
+      // set the goals array to the array
+      setGoals(goalList);
+    });
+  },[]);
+
   // the function handles goal detail on press
   function handleGoalPress (pressedGoal) {
     // receive the goal obj, and print out the info
@@ -58,9 +75,9 @@ export default function Home({ navigation }) {
     // writing to firebase
     writeToDB(newGoal, collectionName);
 
-    setGoals((prevGoals) => {
-      return [...prevGoals, newGoal];
-    });
+    // setGoals((prevGoals) => {
+    //   return [...prevGoals, newGoal];
+    // });
     setIsModalVisible(false);
   }
 
