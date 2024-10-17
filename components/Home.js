@@ -109,7 +109,7 @@ export default function Home({ navigation }) {
         <FlatList
           contentContainerStyle={styles.scrollViewContainer}
           data={goals}
-          renderItem={({ item }) => {
+          renderItem={({ item, separators }) => {
             return (
               <GoalItem 
                 pressHandler={handleGoalPress}
@@ -117,6 +117,7 @@ export default function Home({ navigation }) {
                 goalObj={item}
                 // enables navigation directly from goalItems
                 navigation={navigation}
+                separators={separators}
               />
             );
           }}
@@ -130,10 +131,18 @@ export default function Home({ navigation }) {
           }
           // to show a footer button "Delete All" when goals.length > 0
           ListFooterComponent={goals.length > 0 ? (
-            <Button title="Delete All" onPress={handleDeleteAllGoals} />
-          ) : null}
+              <Button title="Delete All" onPress={handleDeleteAllGoals} />
+            ) : null
+          }
           // to show a separator between each goal, but not at the top or bottom
-          ItemSeparatorComponent={() => <View style={styles.goalSeparator} />}
+          ItemSeparatorComponent={({ highlighted }) => 
+          <View 
+            style={[
+              styles.goalSeparator, 
+              highlighted && styles.highlightedSeparator,
+            ]} 
+          />
+          }
         />
       </View>
     </SafeAreaView>
@@ -175,5 +184,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     padding: 2,
     marginVertical: 10,
-  },
+  }, 
+  highlightedSeparator: {
+    backgroundColor: 'red',
+  }
 });
