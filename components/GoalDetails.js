@@ -2,10 +2,12 @@ import { StyleSheet, Text, View, Button } from 'react-native'
 import React, { useState, useLayoutEffect } from 'react';
 import PressableButton from './PressableButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { updateGoalWarning } from '../Firebase/firestoreHelper';
 
 export default function GoalDetails({navigation, route}) {
   
   const [textColor, setTextColor] = useState("black");
+  const goalId = route.params.goalData.id;
 
   console.log(route);
 
@@ -14,6 +16,7 @@ export default function GoalDetails({navigation, route}) {
     navigation.setOptions({ 
       title: "Warning!",
     });
+    updateGoalWarning(goalId, "Goals")
   }
   
   function moreDetailsHandler() {
