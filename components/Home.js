@@ -40,20 +40,21 @@ export default function Home({ navigation }) {
   // }, []);
 
   // useEffect to read data from firebase, listen to real-time changes
-  useEffect(()=>{
-    // querySnapshot is a list/array of documentSnapshots
-    onSnapshot(collection(database, collectionName), (querySnapshot) => {
-      // define an array here
-      goalList = [];
+  useEffect(() => {
+    const collectionName = "Goals"; // Define your collection name here
+
+    // Attach the listener
+    const unsubscribe = onSnapshot(collection(database, collectionName), (querySnapshot) => {
+      const goalList = [];
       querySnapshot.forEach((docSnapShot) => {
-        // populate the array
-        // console.log(docSnapShot.data());
-        goalList.push({...docSnapShot.data(), id:docSnapShot.id});
-      })
-      // set the goals array to the array
+        goalList.push({ ...docSnapShot.data(), id: docSnapShot.id });
+      });
       setGoals(goalList);
     });
-  },[]);
+
+    // Detach the listener when the component is unmounted or the effect is re-run
+    return () => unsubscribe();
+  }, []);
 
   // the function handles goal detail on press
   function handleGoalPress (pressedGoal) {
