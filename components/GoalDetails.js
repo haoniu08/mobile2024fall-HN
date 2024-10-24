@@ -60,7 +60,7 @@ export default function GoalDetails({navigation, route}) {
        )}
        <Button title="More Details" onPress={moreDetailsHandler}/>
 
-       <GoalUser id={goalId}/>
+       {route.params && <GoalUser id={goalId}/>}
     </View>
   )
 }
