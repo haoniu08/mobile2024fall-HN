@@ -10,6 +10,7 @@ export default function GoalDetails({navigation, route}) {
   const [textColor, setTextColor] = useState("black");
   const goalId = route.params.goalData.id;
 
+
   console.log(route);
 
   function handleWarningPress() {
@@ -52,14 +53,14 @@ export default function GoalDetails({navigation, route}) {
         <Text style={{ color: textColor }}>
             Goal details: {"\n"} 
             Text: {route.params.goalData.text} {"\n"}
-            Id: {route.params.goalData.id}
+            Id: {goalId}
         </Text>
        ) : (
         <Text style={{ color: textColor }}>show more details</Text>
        )}
        <Button title="More Details" onPress={moreDetailsHandler}/>
 
-       <GoalUser />
+       <GoalUser id={goalId}/>
     </View>
   )
 }
