@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React, {useEffect, useState} from 'react'
 
 export default function GoalUsers() {
@@ -14,6 +14,12 @@ export default function GoalUsers() {
           throw new Error('HTTP Error! status: ' + response.status);
         }
         const data = await response.json();
+
+        setUsers(
+            data.map((user) => {
+                return user.name;
+            })
+        );
       } catch (error) {
         console.log("Error while fetching data: ", error);
       }
@@ -23,7 +29,11 @@ export default function GoalUsers() {
   
   return (
     <View>
-      <Text>GoalUsers</Text>
+        <Text>Users:</Text>
+        <FlatList 
+          data={users}
+          renderItem={({item}) => <Text>{item}</Text>}
+        />
     </View>
   )
 }
