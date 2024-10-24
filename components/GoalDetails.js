@@ -3,6 +3,7 @@ import React, { useState, useLayoutEffect } from 'react';
 import PressableButton from './PressableButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { updateGoalWarning } from '../Firebase/firestoreHelper';
+import GoalUser from './GoalUsers';
 
 export default function GoalDetails({navigation, route}) {
   
@@ -47,7 +48,7 @@ export default function GoalDetails({navigation, route}) {
 
   return (
     <View>
-    
+      <GoalUser />
       {route.params ? (
         <Text style={{ color: textColor }}>
             Goal details: {"\n"} 
