@@ -3,11 +3,13 @@ import React, { useState, useLayoutEffect } from 'react';
 import PressableButton from './PressableButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { updateGoalWarning } from '../Firebase/firestoreHelper';
+import GoalUser from './GoalUsers';
 
 export default function GoalDetails({navigation, route}) {
   
   const [textColor, setTextColor] = useState("black");
   const goalId = route.params.goalData.id;
+
 
   console.log(route);
 
@@ -47,17 +49,18 @@ export default function GoalDetails({navigation, route}) {
 
   return (
     <View>
-    
       {route.params ? (
         <Text style={{ color: textColor }}>
             Goal details: {"\n"} 
             Text: {route.params.goalData.text} {"\n"}
-            Id: {route.params.goalData.id}
+            Id: {goalId}
         </Text>
        ) : (
         <Text style={{ color: textColor }}>show more details</Text>
        )}
        <Button title="More Details" onPress={moreDetailsHandler}/>
+
+       {route.params && <GoalUser id={goalId}/>}
     </View>
   )
 }
