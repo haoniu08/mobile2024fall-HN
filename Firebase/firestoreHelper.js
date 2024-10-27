@@ -16,6 +16,7 @@ export async function writeToDB(data, collectionName) {
 export async function deleteFromDB(deletedId, collectionName) {
 	try {
 		await deleteDoc(doc(database, collectionName, deletedId))
+		deleteAllFromDB(`Goals/${deletedId}/users`)
 	} catch (err) {
 		console.log("delete from database", err)
 	}
@@ -24,7 +25,11 @@ export async function deleteFromDB(deletedId, collectionName) {
 export async function deleteAllFromDB(collectionName) {
 	try {
 		const querySnapshot = await getDocs(collection(database, collectionName));
-		querySnapshot.forEach((docSnapshot) => {deleteFromDB(docSnapshot.id, collectionName)})
+		querySnapshot.forEach((docSnapshot) => {
+			deleteFromDB(docSnapshot.id, collectionName)
+		})
+		// delete all users from the sub-collection
+		deleteAllFromDB(`Goals/${collectionName}/users`)
 	} catch (err) {
 		console.log("delete all from database", err)
 	}
@@ -38,3 +43,17 @@ export async function updateGoalWarning(goalId, collectionName) {
 		console.log("updating goal doc", err)
 	}
 }
+
+export async function readAllDocs(collectionName) {
+	try {
+	  const querySnapshot = await getDocs(collection(database, collectionName));
+	  const userList = [];
+	  querySnapshot.forEach((docSnapShot) => {
+		userList.push(docSnapShot.data());
+	  });
+	  return userList; // Return the userList
+	} catch (err) {
+	  console.log("Error reading all docs: ", err);
+	  throw err;
+	}
+  }
