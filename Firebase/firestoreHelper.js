@@ -11,7 +11,7 @@ export async function writeToDB(data, collectionName) {
 	catch (err) {
 	    console.log("write to database", err)
 	  }
-	}
+}
 
 export async function deleteFromDB(deletedId, collectionName) {
 	try {
@@ -56,4 +56,4 @@ export async function readAllDocs(collectionName) {
 	  console.log("Error reading all docs: ", err);
 	  throw err;
 	}
-  }
+}
