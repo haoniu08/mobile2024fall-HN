@@ -17,10 +17,12 @@ export default function SignupScreen({ navigation }) {
   const signupHandler = async () => {
     if (!email.length) {
       Alert.alert("Please enter email");
+      return;
     }
 
     if (!password.length) {
       Alert.alert("Please enter password");
+      return;
     }
 
     try {

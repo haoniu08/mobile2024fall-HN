@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native'
 import React, { useState } from 'react'
+import {auth} from '../Firebase/firebaseSetup'
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 
 export default function LoginScreen({navigation}) {
@@ -11,7 +13,25 @@ export default function LoginScreen({navigation}) {
     navigation.replace("Signup");
   };
 
-  const loginHandler = () => {};
+  const loginHandler = async () => {
+    if (!email.length) {
+      Alert.alert("Email cannot be null");
+      return;
+    } else if (!password.length) {
+      Alert.alert("Password cannot be null");
+      return;
+    }
+    try {
+      const userCredentials = await signInWithEmailAndPassword (
+        auth,
+        email,
+        password
+      );
+      console.log(userCredentials);
+    } catch (err) {
+      console.log("Sign in error:", err);
+    }
+  };
 
   return (
     <View style={styles.container}>
