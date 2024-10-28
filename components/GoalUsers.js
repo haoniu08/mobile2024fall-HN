@@ -47,35 +47,35 @@ export default function GoalUsers({ id }) {
     fetchData();
   }, []);
 
-  const handlePostRequest = async () => {
+  // const handlePostRequest = async () => {
 
-    if (users.length == 0) {
-      console.log("Not any user info available to be sent in the POST request");
-      return
-    }
+  //   if (users.length == 0) {
+  //     console.log("Not any user info available to be sent in the POST request");
+  //     return
+  //   }
 
-    const testUser = users[0];
+  //   const testUser = users[0];
 
-    try {
-      const response  = await fetch('/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(testUser)
-      });
+  //   try {
+  //     const response  = await fetch('/users', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(testUser)
+  //     });
 
-      if (!response.ok) {
-        throw new Error(`HTTP Error! status: ${response.status}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP Error! status: ${response.status}`);
+  //     }
 
-      const result = await response.json();
-      console.log('POST request result:',result);
+  //     const result = await response.json();
+  //     console.log('POST request result:',result);
 
-    } catch (error) {
-      console.log("Error while posting data: ", error);
-    }
-  }
+  //   } catch (error) {
+  //     console.log("Error while posting data: ", error);
+  //   }
+  // }
   
   return (
     <View>
@@ -85,7 +85,8 @@ export default function GoalUsers({ id }) {
           // keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => <Text>{item}</Text>}
         />
-        <Button title='Send POST Rquest' onPress={handlePostRequest}/>
+        
+        {/* <Button title='Send POST Rquest' onPress={handlePostRequest}/> */}
     </View>
   )
 }
