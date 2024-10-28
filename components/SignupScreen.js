@@ -1,5 +1,8 @@
 import { StyleSheet, Text, View, TextInput, Alert, Button } from 'react-native';
-import React, {useState} from 'react';
+import React, {Component, useState} from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../Firebase/firebaseSetup'
+import { EmailAuthCredential } from 'firebase/auth/web-extension';
 
 export default function SignupScreen({ navigation }) {
 
@@ -11,7 +14,31 @@ export default function SignupScreen({ navigation }) {
     navigation.replace("Login");
   }
 
-  const signupHandler = async () => {};
+  const signupHandler = async () => {
+    if (!email.length) {
+      Alert.alert("Please enter email");
+    }
+
+    if (!password.length) {
+      Alert.alert("Please enter password");
+    }
+
+    try {
+      userCredentials = await createUserWithEmailAndPassword (
+        auth,
+        email,
+        password
+      )
+      console.log(userCredentials);
+    } catch (err) {
+      console.log("create user", err);
+      if (err.code === "auth/invalid-email ") {
+        Alert.alert("Email address is invalid");
+      } else if (err.code === "auth/missing-password") {
+        Alert.alert("Password is missing");
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
