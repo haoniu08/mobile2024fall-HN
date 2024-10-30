@@ -11,7 +11,6 @@ import { onAuthStateChanged } from 'firebase/auth'
 import Profile from './components/Profile'
 import PressableButton from './components/PressableButton'
 import AndDesign from "@expo/vector-icons/AntDesign"
-import { withSafeAreaInsets } from 'react-native-safe-area-context'
 
 const Stack = createStackNavigator();
 
