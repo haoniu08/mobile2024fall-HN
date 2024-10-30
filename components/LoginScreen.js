@@ -27,7 +27,7 @@ export default function LoginScreen({navigation}) {
         email,
         password
       );
-      console.log(userCredentials);
+      console.log(userCredentials.user);
     } catch (err) {
       console.log("Sign in error:", err);
     }

@@ -15,13 +15,17 @@ export default function SignupScreen({ navigation }) {
   }
 
   const signupHandler = async () => {
-    if (!email.length) {
-      Alert.alert("Please enter email");
+    if (
+      !email.length
+      || !password.length
+      || !confirmPassword.length
+    ) {
+      Alert.alert("All fields should be provided");
       return;
     }
 
-    if (!password.length) {
-      Alert.alert("Please enter password");
+    if (password != confirmPassword) {
+      Alert.alert("Password and confirm password do not match!");
       return;
     }
 
