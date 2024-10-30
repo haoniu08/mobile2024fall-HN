@@ -8,6 +8,10 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { auth } from './Firebase/firebaseSetup';
 import { onAuthStateChanged } from 'firebase/auth'
+import Profile from './components/Profile'
+import PressableButton from './components/PressableButton'
+import AndDesign from "@expo/vector-icons/AntDesign"
+import { withSafeAreaInsets } from 'react-native-safe-area-context'
 
 const Stack = createStackNavigator();
 
@@ -15,22 +19,45 @@ const Stack = createStackNavigator();
 //   console.log("Warning")
 // } 
 
-const authStack = <>
+const authStack = (<>
   <Stack.Screen name="Login" component={Login} />
   <Stack.Screen name="Signup" component={Signup} />
 </>
+);
 
-const appStack = <>
-  <Stack.Screen name="My Goals" component={Home}/>
-  <Stack.Screen 
-    name="Details"
-    component={GoalDetails}
-    options={({route}) => {
-      return {
-        title: route.params ? route.params.goalData.text : "xxx",}
-    }}
-  />
-</>
+const appStack = (
+  <>
+    <Stack.Screen 
+      name="My Goals"
+      component={Home}
+      options={({navigation}) => {
+        return {
+          headerRight: () => {
+            return (
+              <PressableButton
+                componentStyle={{backgroundColor: "purple"}}
+                pressHandler= {() => {
+                  navigation.navigate("Profile");
+                }}
+              >
+                <AndDesign name='user' size={20} color="white"/>
+              </PressableButton>
+            );
+          }
+        }
+      }}
+    />
+    <Stack.Screen 
+      name="Details"
+      component={GoalDetails}
+      options={({route}) => {
+        return {
+          title: route.params ? route.params.goalData.text : "xxx",}
+      }}
+    />
+    <Stack.Screen name="Profile" component={Profile}/>
+  </>
+);
 
 export default function App() {
 

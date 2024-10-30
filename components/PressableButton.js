@@ -1,10 +1,10 @@
 import { StyleSheet, View, Pressable } from 'react-native'
 import React from 'react'
 
-const PressableButton = ({ children, pressedFunction, componentStyle, pressedStyle }) => {
+const PressableButton = ({ children, pressHandler, componentStyle, pressedStyle }) => {
     return (
         <Pressable
-            onPress={pressedFunction}
+            onPress={pressHandler}
             style={({ pressed }) => [
                 styles.defaultStyle,
                 componentStyle,
