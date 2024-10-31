@@ -29,10 +29,10 @@ const appStack = (
     <Stack.Screen 
       name="My Goals"
       component={Home}
-      options={({navigation}) => {
-        return {
-          headerRight: () => {
-            return (
+      options={({navigation}) => ({
+        // return {
+          headerRight: () => (
+            // return (
               <PressableButton
                 componentStyle={{backgroundColor: "purple"}}
                 pressHandler= {() => {
@@ -41,10 +41,10 @@ const appStack = (
               >
                 <AndDesign name='user' size={20} color="white"/>
               </PressableButton>
-            );
-          }
-        }
-      }}
+            // );
+          ),
+        // }
+      })}
     />
     <Stack.Screen 
       name="Details"

@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TextInput, Alert, Button } from 'react-native';
 import React, {Component, useState} from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../Firebase/firebaseSetup'
-import { EmailAuthCredential } from 'firebase/auth/web-extension';
+// import { EmailAuthCredential } from 'firebase/auth/web-extension';
 
 export default function SignupScreen({ navigation }) {
 
@@ -21,6 +21,21 @@ export default function SignupScreen({ navigation }) {
       || !confirmPassword.length
     ) {
       Alert.alert("All fields should be provided");
+      return;
+    }
+
+    if (password.length < 6) {
+      Alert.alert("Password should be at least 6 characters");
+      return;
+    }
+
+    // check if the email address is of the correct format
+    // but in fact this is not necessary because the 
+    // createUserWithEmailAndPassword function, do it here because so
+    // no need to query the database/server for every validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert("Email address is invalid");
       return;
     }
 

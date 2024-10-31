@@ -13,6 +13,7 @@ export default function LoginScreen({navigation}) {
     navigation.replace("Signup");
   };
 
+  
   const loginHandler = async () => {
     if (!email.length) {
       Alert.alert("Email cannot be null");
@@ -21,6 +22,18 @@ export default function LoginScreen({navigation}) {
       Alert.alert("Password cannot be null");
       return;
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert("Email address is invalid");
+      return;
+    }
+
+    if (password.length < 6) {
+      Alert.alert("Password should be at least 6 characters");
+      return;
+    }
+
     try {
       const userCredentials = await signInWithEmailAndPassword (
         auth,
