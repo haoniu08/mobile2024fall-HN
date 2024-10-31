@@ -12,7 +12,7 @@ export default function Profile({ navigation }) {
         <PressableButton
           pressHandler={() => {
             signOut(auth).then(() => {
-              navigation.navigate("Login")
+              navigation.replace("Login")
             })
           }}
         >
