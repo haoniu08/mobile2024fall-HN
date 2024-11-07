@@ -5,7 +5,7 @@ import { useCameraPermissions } from 'expo-image-picker'
 import * as ImagePicker from 'expo-image-picker'
 
 
-export default function ImageManager() {
+export default function ImageManager({ receiveImageUri }) {
 
     const [response, requestPermission] = ImagePicker.useCameraPermissions();
     const [imageUri, setImageUri] = useState("");
@@ -37,8 +37,8 @@ export default function ImageManager() {
                 allowsEditing: true,
             });
 
-            if (!result.cancelled) {
-                setImageUri(result.assets[0].uri);
+            if (!result.canceled) {
+                receiveImageUri(result.assets[0].uri);
             }
         } catch (error) {
             console.log("error taking img", error)
