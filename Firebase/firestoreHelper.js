@@ -1,8 +1,11 @@
 import { collection, addDoc, doc, deleteDoc, getDocs, updateDoc } from "firebase/firestore";
 import { database } from "./firebaseSetup";
+import { auth } from '../Firebase/firebaseSetup'
 
 export async function writeToDB(data, collectionName) {
     // console.log(database);
+
+	const goal = {...goal, owner:auth.currentUser.uid}
     
 	try {
 	    const docRef = await addDoc(collection(database, collectionName), data);
@@ -11,7 +14,7 @@ export async function writeToDB(data, collectionName) {
 	catch (err) {
 	    console.log("write to database", err)
 	  }
-	}
+}
 
 export async function deleteFromDB(deletedId, collectionName) {
 	try {
@@ -56,4 +59,4 @@ export async function readAllDocs(collectionName) {
 	  console.log("Error reading all docs: ", err);
 	  throw err;
 	}
-  }
+}
