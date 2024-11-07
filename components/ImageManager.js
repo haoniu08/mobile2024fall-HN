@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Alert } from 'react-native'
 import React from 'react'
 import PressableButton from './PressableButton'
 import { useCameraPermissions } from 'expo-image-picker'
@@ -10,6 +10,7 @@ export default function ImageManager() {
 
     const takeImageHandler = async () => {
         try {
+
             const result = await ImagePicker.launchCameraAsync();
         } catch (error) {
             console.log("error taking img", error)
