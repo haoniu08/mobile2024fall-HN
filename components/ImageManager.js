@@ -8,10 +8,32 @@ export default function ImageManager() {
 
     const [response, requestPermission] = useCameraPermissions();
 
+    async function verifyPermissions() {
+        try {
+            if (response.granted) {
+                return true;
+            }
+
+            const permissionResponse = await requestPermission();
+            return permissionResponse.granted;
+        } catch (error) {
+            console.log("error verifying permissions", error)
+        }
+    }
+
     const takeImageHandler = async () => {
         try {
+            const hasPermission = await verifyPermissions();
 
-            const result = await ImagePicker.launchCameraAsync();
+            if (!hasPermission) {
+                Alert.alert(
+                    "You need to grant camera permissions to use camera");
+                return;
+            }
+
+            const result = await ImagePicker.launchCameraAsync({
+                allowsEditing: true,
+            });
         } catch (error) {
             console.log("error taking img", error)
         }
