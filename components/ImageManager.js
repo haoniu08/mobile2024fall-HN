@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Alert } from 'react-native'
+import { StyleSheet, Text, View, Alert, Button } from 'react-native'
 import React, { useState } from 'react'
 import PressableButton from './PressableButton'
 import { useCameraPermissions } from 'expo-image-picker'
@@ -10,7 +10,7 @@ export default function ImageManager({ receiveImageUri }) {
     const [response, requestPermission] = ImagePicker.useCameraPermissions();
     const [imageUri, setImageUri] = useState("");
 
-    async function verifyPermissions() {
+    async function verifyPermission() {
         try {
             if (response.granted) {
                 return true;
@@ -25,7 +25,7 @@ export default function ImageManager({ receiveImageUri }) {
 
     const takeImageHandler = async () => {
         try {
-            const hasPermission = await verifyPermissions();
+            const hasPermission = await verifyPermission();
 
             if (!hasPermission) {
                 Alert.alert(
@@ -38,6 +38,7 @@ export default function ImageManager({ receiveImageUri }) {
             });
 
             if (!result.canceled) {
+                setImageUri(result.assets[0].uri);
                 receiveImageUri(result.assets[0].uri);
             }
         } catch (error) {
@@ -47,10 +48,7 @@ export default function ImageManager({ receiveImageUri }) {
 
 return (
     <View>
-      <PressableButton
-        children={<Text>Take Image</Text>}
-        onPress={takeImageHandler}
-      />
+      <Button title="Take an Image" onPress={takeImageHandler} />
       {imageUri && (
         <Image
           source={{ uri: imageUri }}

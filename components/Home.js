@@ -11,7 +11,8 @@ import {useState, useEffect} from 'react';
 import Header from './Header.js'
 import Input from './Input';
 import GoalItem from './GoalItem';
-import {auth, database } from '../Firebase/firebaseSetup';
+import {auth, database, storage } from '../Firebase/firebaseSetup';
+import { ref, uploadBytesResumable } from 'firebase/storage';
 import { writeToDB, deleteFromDB, deleteAllFromDB } from '../Firebase/firestoreHelper';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 
@@ -67,6 +68,25 @@ export default function Home({ navigation }) {
     return () => unsubscribe();
   }, []);
 
+
+  async function handleImageData(uri) {
+    try {
+      const response = await fetch(uri);
+      if (!response.ok) {
+        throw new Error(`Network response was not ok ${response.status}`);
+      }
+
+      const blob = await response.blob();
+      const imageName = uri.substring(uri.lastIndexOf('/') + 1);
+      const ImageRef = await ref(storage, `images/${imageName}`);
+      const uploadResult = await uploadBytesResumable(ImageRef, blob);
+
+      console.log("upload result", uploadResult);
+    } catch (error) {
+      console.log("error handling image data", error)
+    }
+  }
+
   // the function handles goal detail on press
   function handleGoalPress (pressedGoal) {
     // receive the goal obj, and print out the info
@@ -81,8 +101,13 @@ export default function Home({ navigation }) {
     //   ...currentGoals,
     //   { text: data, id: Math.random()}
     // ]);
+    
+    if (data.imageUri) {
+      handleImageData(data.imageUri);
+    }
 
     // trying out Neda's way
+    let newGoal = {text: data.text};
     newGoal = {...newGoal, uid: auth.currentUser.uid};
 
     // writing to firebase
