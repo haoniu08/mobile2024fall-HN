@@ -78,7 +78,7 @@ export default function Home({ navigation }) {
 
       const blob = await response.blob();
       const imageName = uri.substring(uri.lastIndexOf('/') + 1);
-      const ImageRef = await ref(storage, `images/${imageName}`);
+      const ImageRef = ref(storage, `images/${imageName}`);
       const uploadResult = await uploadBytesResumable(ImageRef, blob);
 
       console.log("upload result", uploadResult);
