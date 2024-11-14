@@ -83,27 +83,6 @@ export default function App() {
         }}
       >
         {isUserLoggedIn ? appStack : authStack}
-        
-        {/* <Stack.Screen
-          name="Signup"
-          component={Signup}
-        />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-        />
-        <Stack.Screen 
-          name="My Goals" 
-          component={Home} 
-        />
-        <Stack.Screen 
-          name="Details" 
-          component={GoalDetails} 
-          options={({route}) => {
-            return {
-              title: route.params ? route.params.goalData.text : "xxx",}
-          }}
-        /> */}
       </ Stack.Navigator>
     </NavigationContainer>
   )
