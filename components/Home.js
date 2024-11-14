@@ -102,6 +102,7 @@ export default function Home({ navigation }) {
     //   { text: data, id: Math.random()}
     // ]);
     
+
     if (data.imageUri) {
       handleImageData(data.imageUri);
     }
