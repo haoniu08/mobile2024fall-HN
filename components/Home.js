@@ -11,9 +11,10 @@ import {useState, useEffect} from 'react';
 import Header from './Header.js'
 import Input from './Input';
 import GoalItem from './GoalItem';
-import { database } from '../Firebase/firebaseSetup';
+import {auth, database, storage } from '../Firebase/firebaseSetup';
+import { ref, uploadBytesResumable } from 'firebase/storage';
 import { writeToDB, deleteFromDB, deleteAllFromDB } from '../Firebase/firestoreHelper';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 
 
 export default function Home({ navigation }) {
@@ -44,17 +45,47 @@ export default function Home({ navigation }) {
     const collectionName = "Goals"; // Define your collection name here
 
     // Attach the listener
-    const unsubscribe = onSnapshot(collection(database, collectionName), (querySnapshot) => {
-      const goalList = [];
-      querySnapshot.forEach((docSnapShot) => {
-        goalList.push({ ...docSnapShot.data(), id: docSnapShot.id });
-      });
-      setGoals(goalList);
-    });
-
-    // Detach the listener when the component is unmounted or the effect is re-run
+    const unsubscribe = onSnapshot(
+      query(collection(database, collectionName)),
+      where("uid", "==", auth.currentUser.uid),
+      (querySnapshot) => {
+        //define an array
+        let newArray = [];
+        querySnapshot.forEach((docSnapshot) => {
+          //populate the array
+          newArray.push({ ...docSnapshot.data(), id: docSnapshot.id });
+          console.log(docSnapshot.id);
+        });
+        console.log(newArray);
+        //setGoals with this array
+        setGoals(newArray);
+      },
+      (error) => {
+        console.log("on snapshot ", error);
+        Alert.alert(error.message);
+      }
+    );
     return () => unsubscribe();
   }, []);
+
+
+  async function handleImageData(uri) {
+    try {
+      const response = await fetch(uri);
+      if (!response.ok) {
+        throw new Error(`Network response was not ok ${response.status}`);
+      }
+
+      const blob = await response.blob();
+      const imageName = uri.substring(uri.lastIndexOf('/') + 1);
+      const ImageRef = ref(storage, `images/${imageName}`);
+      const uploadResult = await uploadBytesResumable(ImageRef, blob);
+
+      console.log("upload result", uploadResult);
+    } catch (error) {
+      console.log("error handling image data", error)
+    }
+  }
 
   // the function handles goal detail on press
   function handleGoalPress (pressedGoal) {
@@ -70,9 +101,14 @@ export default function Home({ navigation }) {
     //   ...currentGoals,
     //   { text: data, id: Math.random()}
     // ]);
+    
+    if (data.imageUri) {
+      handleImageData(data.imageUri);
+    }
 
     // trying out Neda's way
-    let newGoal = { text: data};
+    let newGoal = {text: data.text};
+    newGoal = {...newGoal, uid: auth.currentUser.uid};
 
     // writing to firebase
     writeToDB(newGoal, collectionName);
