@@ -10,7 +10,7 @@ export default function GoalDetails({navigation, route}) {
   
   const [textColor, setTextColor] = useState("black");
   const goalId = route.params.goalData.id;
-  cosnt [downloadURL, setDownloadURL] = useState("");
+  cosnt [downloadImageURL, setdownloadImageURL] = useState("");
 
 
   console.log(route);
