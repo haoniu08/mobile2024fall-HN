@@ -15,7 +15,7 @@ export default function Map() {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
         }}
-        
+        // tt
         onPress={ (e) => {
             setSelectedLocation({
                 latitude: e.nativeEvent.coordinate.latitude,
