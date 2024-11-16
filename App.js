@@ -11,12 +11,19 @@ import { onAuthStateChanged } from 'firebase/auth'
 import Profile from './components/Profile'
 import PressableButton from './components/PressableButton'
 import AndDesign from "@expo/vector-icons/AntDesign"
+import Map from './components/Map'
 
 const Stack = createStackNavigator();
 
 // function handleWarningPress () {
 //   console.log("Warning")
 // } 
+
+const mapStack = (
+  <>
+    <Stack.Screen name="Map" component={Map}/>
+  </>
+);
 
 const authStack = (<>
   <Stack.Screen name="Login" component={Login} />
@@ -55,6 +62,7 @@ const appStack = (
       }}
     />
     <Stack.Screen name="Profile" component={Profile}/>
+    {mapStack}
   </>
 );
 
@@ -83,27 +91,6 @@ export default function App() {
         }}
       >
         {isUserLoggedIn ? appStack : authStack}
-        
-        {/* <Stack.Screen
-          name="Signup"
-          component={Signup}
-        />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-        />
-        <Stack.Screen 
-          name="My Goals" 
-          component={Home} 
-        />
-        <Stack.Screen 
-          name="Details" 
-          component={GoalDetails} 
-          options={({route}) => {
-            return {
-              title: route.params ? route.params.goalData.text : "xxx",}
-          }}
-        /> */}
       </ Stack.Navigator>
     </NavigationContainer>
   )

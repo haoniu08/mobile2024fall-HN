@@ -1,14 +1,16 @@
 import { StyleSheet, Text, View, Button } from 'react-native'
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import PressableButton from './PressableButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { updateGoalWarning } from '../Firebase/firestoreHelper';
 import GoalUser from './GoalUsers';
+import { getDownloadURL, ref } from 'firebase/storage';
 
 export default function GoalDetails({navigation, route}) {
   
   const [textColor, setTextColor] = useState("black");
   const goalId = route.params.goalData.id;
+  cosnt [downloadImageURL, setdownloadImageURL] = useState("");
 
 
   console.log(route);
@@ -46,6 +48,20 @@ export default function GoalDetails({navigation, route}) {
       ),
     });
   }, [navigation]);
+  useEffect (() => {
+    async function getImageDownloadURL() {
+      try {
+        if (route.params && route.params.goalObj.imageUri) {
+          const ImageRef = ref(storage, route.params.goalObj.imageUri);
+          const downloadURL = await getDownloadURL(ImageRef);      
+        }
+      } catch (error) {
+        console.log("error getting image download URL", error);
+      }
+    }
+    getImageDownloadURL();
+  });
+
 
   return (
     <View>

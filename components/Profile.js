@@ -4,6 +4,8 @@ import { auth } from '../Firebase/firebaseSetup'
 import { signOut } from 'firebase/auth'
 import PressableButton from './PressableButton'
 import AntDesign from '@expo/vector-icons/AntDesign';
+import LocationManager from './LocationManager'
+
 
 export default function Profile({ navigation }) {
   useEffect(() => {
@@ -24,6 +26,7 @@ export default function Profile({ navigation }) {
 
   return (
     <View>
+      <LocationManager />
       <Text>{auth.currentUser.email}</Text>
       <Text>{auth.currentUser.uid}</Text>
     </View>
